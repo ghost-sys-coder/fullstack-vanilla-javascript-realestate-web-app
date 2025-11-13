@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/globals.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preload" href="/assets/videos/video_one.mp4" as="video" type="video/mp4">
+    <title>DreamHomes</title>
+</head>
+<body>
+
+<!-- header -->
+<header class="navbar" id="navbar"></header>
+
+<!-- content -->
+<section class="">
+    <div class="hero-container">
+        <img src="./assets/images/hero_banner_two.jpeg" alt="hero banner">
+
+        <div class="overlay"></div>
+       <div class="text-content">
+           <h1>Find a home that suits your lifestyle.</h1>
+           <p>Discover affordable luxury properties designed to match your lifestyle.
+               Explore apartments, family homes, and villas in your desired locations.
+           </p>
+
+           <a href="/property" class="cta-btn">View Listings</a>
+       </div>
+    </div>
+</section>
+
+<!-- sample apartments grid -->
+<section >
+    <div class="section-header">
+        <h2 class="section-title">Discover your featured property</h2>
+        <p>Browse our exclusive collection of featured apartments.</p>
+    </div>
+    <div class="apartments-grid" id="apartments-grid"></div>
+</section>
+
+<!-- video display section -->
+<section class="video-section">
+    <div class="video-container">
+        <video
+                src="/assets/videos/video_one.mp4"
+                autoplay
+                muted
+                loop playsinline
+                preload="auto"
+        ></video>
+        <div class="video-overlay"></div>
+    </div>
+    <div class="content-container">
+        <div class="text-content">
+            <h4>Turn vision into value—your next home awaits.</h4>
+            <p>Step inside modern spaces designed for comfort and built for convenience. Discover apartments that redefine urban living with elegance and simplicity.</p>
+            <a href="/property" class="cta-btn">Learn More</a>
+        </div>
+    </div>
+</section>
+
+
+<section class="testimonials-section" id="testimonials-section">
+</section>
+
+
+
+<!-- commercial properties section -->
+<section class="" id="commercial-properties">
+    <div class="section-header">
+        <h2 class="section-title">Commercial Property</h2>
+        <p>Browse our exclusive collection of commercial properties.</p>
+    </div>
+
+    <div class="commercial-apartments_grid" id="commercial-apartments_grid"></div>
+</section>
+
+
+
+<!-- Client contact form -->
+<section class="contact-section">
+    <div class="contact-form_container">
+
+        <form id="contact-form" class="contact-form">
+            <h5>Get in touch</h5>
+            <p>Send us a message and our team will get back to you shortly!</p>
+
+            <div class="">
+                <label for="name" class="sr-only">Name</label>
+                <input  type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="">
+                <label for="email" class="sr-only">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your email" required>
+            </div>
+            <div class="">
+                <label for="phone" class="sr-only">Your mobile</label>
+                <input type="tel" id="phone" name="phone" placeholder="Your mobile" required>
+            </div>
+            <div class="">
+                <label for="message" class="sr-only">Message</label>
+                <textarea name="message" id="message" cols="30" rows="4" placeholder="Your message..." required></textarea>
+            </div>
+            <button type="submit" class="cta-btn" id="submit-btn">Send Message</button>
+            <p class="form-status" id="form-status"></p>
+        </form>
+
+        <div class="contact-info">
+            <div class="">
+                <h6>Putting a plan to action, to assure your satisfaction!</h6>
+                <p>We'd love to hear from you. Reach out for inquiries, partnerships or general support</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- location -->
+<section class="locations" id="locations">
+    <div class="section-header">
+        <h2 class="section-title">What city will you live in?</h2>
+        <p>Search through our properties by location.</p>
+    </div>
+
+    <div class="locations-grid" id="locations-grid">
+
+    </div>
+</section>
+
+<!-- footer -->
+<footer class="footer" id="footer"></footer>
+
+<script src="/app.js"></script>
+<script type="module" src="js/properties.js"></script>
+<script type="module" src="js/testimonials.js"></script>
+</body>
+</html>
