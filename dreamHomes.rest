@@ -1,0 +1,16 @@
+### GET /
+GET http://localhost:5000
+
+### GET /auth/sign-up
+GET http://localhost:5000/auth/sign-up
+
+### POST /auth/sign-up
+POST http://localhost:5000/api/auth/sign-up
+
+Content-Type: application/json
+
+{
+    "fullname": "John Doe",
+    "email": "johndoe@example.com",
+    "password": "securePassword123"
+}

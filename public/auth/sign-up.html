@@ -11,7 +11,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="/css/auth.css" />
+    <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
     <div class="auth-container">
@@ -19,13 +19,13 @@
         <div class="auth-image"></div>
       </div>
 
-      <form class="auth-form">
+      <form class="auth-form" id="sign-up">
         <h2>Create Your Account</h2>
         <p>Join DreamHomes and find your dream property today.</p>
 
         <div class="form-group">
           <label for="fullname">Full Name</label>
-          <input type="text" id="fullname" placeholder="John Doe" required />
+          <input type="text" id="fullname" name="fullname" placeholder="John Doe" required />
         </div>
 
         <div class="form-group">
@@ -33,6 +33,7 @@
           <input
             type="email"
             id="email"
+            name="email"
             placeholder="john@example.com"
             required
           />
@@ -43,6 +44,7 @@
           <input
             type="password"
             id="password"
+            name="password"
             placeholder="********"
             required
           />
@@ -53,6 +55,7 @@
           <input
             type="password"
             id="confirm-password"
+            name="confirm-password"
             placeholder="********"
             required
           />
@@ -65,5 +68,6 @@
         </p>
       </form>
     </div>
+    <script src="/js/auth.js"></script>
   </body>
 </html>

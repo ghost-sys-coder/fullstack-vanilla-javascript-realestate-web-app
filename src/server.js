@@ -3,7 +3,10 @@ import cors from "cors";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
-const PORT = process.env.PORT || 5000;
+import authRoutes from "./routes/authRoute.js";
+import productRoutes from "./routes/productsRoutes.js";
+
+const PORT = process.env.PORT || 8000;
 
 
 const app = express();
@@ -16,12 +19,13 @@ const __dirname = dirname(__filename);
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../public")));
 
 
 app.get("/", (req, res)=> {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
 
 app.get("/contact", (req, res)=> {
@@ -44,6 +48,13 @@ app.get("/auth/sign-in", (req, res)=> {
 app.get("/auth/sign-up", (req, res)=> {
     res.sendFile(path.join(__dirname, "../public/auth", "sign-up.html"));
 })
+
+
+/**
+ * ! ROUTES
+ */
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 app.listen(PORT, ()=> {
     console.log(`Server is running on PORT: ${PORT}`);
