@@ -2,7 +2,7 @@
 import "dotenv/config";
 import { Pool } from "pg";
 
-const pool = new Pool({
+export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     require: true,
@@ -15,9 +15,9 @@ async function connectToDB() {
   try {
     console.log("Establishing Connection...");
 
-    // drop table if it exists
-    await client.query("DROP TABLE IF EXISTS products");
-    await client.query("DROP TABLE IF EXISTS users");
+    // dropping the table deletes all users
+    // await client.query("DROP TABLE IF EXISTS products");
+    // await client.query("DROP TABLE IF EXISTS users");
 
     // create tables
     await client.query(`
@@ -57,4 +57,3 @@ async function connectToDB() {
   }
 }
 
-connectToDB();

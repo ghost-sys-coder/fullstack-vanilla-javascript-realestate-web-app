@@ -4,10 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DreamHomes Sign In Page</title>
-    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
   </head>
   <body>
-    <div class="auth-container">
+    <div class="page-loader" id="page-loader">
+      <div class="spinner"></div>
+    </div>
+    <div class="page-content">
+      <div class="auth-container" id="auth-container">
       <div class="auth-image_container">
         <div class="image"></div>
       </div>
@@ -44,5 +48,8 @@
         </p>
       </form>
     </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js" referrerpolicy="no-referrer"></script>
+    <script src="/js/auth.js"></script>
   </body>
 </html>

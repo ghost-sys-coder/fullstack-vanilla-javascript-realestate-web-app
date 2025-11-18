@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -20,7 +21,11 @@ const __dirname = dirname(__filename);
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({
+    credentials: true,
+    origin: process.env.NODE_ENV === "production" ? "" : "http://localhost:5000"
+}));
 app.use(express.static(path.join(__dirname, "../public")));
 
 
