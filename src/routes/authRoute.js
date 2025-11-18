@@ -5,11 +5,11 @@ import { rateLimit } from "express-rate-limit";
 import { pool } from "../db.js";
 
 const authLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 50,
-    standardHeaders: "draft-8",
-    legacyHeaders: false,
-    ipv6Subnet: 64
+  windowMs: 15 * 60 * 1000,
+  limit: 50,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  ipv6Subnet: 64,
 });
 
 const authRoutes = Router();
@@ -152,58 +152,63 @@ authRoutes.post("/sign-in", authLimiter, async (req, res) => {
  * ROUTE - sign-out
  */
 authRoutes.post("/sign-out", async (req, res) => {
-    const isProd = process.env.NODE_ENV === "production";
+  const isProd = process.env.NODE_ENV === "production";
 
-    res.clearCookie("dreamhomes_token", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production" ? true : false,
-        sameSite: isProd ? "none" : "lax",
-        maxAge: 0
-    });
-    return res.status(200).json({success: true, message: "Logged Out"})
-})
-
+  res.clearCookie("dreamhomes_token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production" ? true : false,
+    sameSite: isProd ? "none" : "lax",
+    maxAge: 0,
+  });
+  return res.status(200).json({ success: true, message: "Logged Out" });
+});
 
 /**
  * METHOD - GET
  * ROUTE - /me
  */
 authRoutes.get("/me", authLimiter, async (req, res) => {
-    try {
-        const token = await req.cookies?.dreamhomes_token;
+  try {
+    const token = await req.cookies?.dreamhomes_token;
 
-        if (!token) return res.status(404).json({
-            success: false,
-            message: "Unauthorized access"
-        });
+    if (!token)
+      return res.status(404).json({
+        success: false,
+        message: "Unauthorized access",
+      });
 
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-        const result = await pool.query(
-            "SELECT * FROM users WHERE id = $1", [decodedToken.id]
-        );
+    const result = await pool.query("SELECT * FROM users WHERE id = $1", [
+      decodedToken.id,
+    ]);
 
-        if (!result.rows.length) return res.status(404).json({
-            success: false,
-            message: "User not found!"
-        });
+    if (!result.rows.length)
+      return res.status(404).json({
+        success: false,
+        message: "User not found!",
+      });
 
-        return res.status(200).json({
-            success: true,
-            message: "User found!",
-            user: {
-                id: result.rows[0].id,
-                fullname: result.rows[0].fullname,
-                email: result.rows[0].email
-            }
-        });
-    } catch (error) {
-        console.error("Failed to find user", error);
-        return res.status(401).json({
-            success: false,
-            message: "Invalid or expired token"
-        });
-    }
-})
+    return res.status(200).json({
+      success: true,
+      message: "User found!",
+      user: {
+        id: result.rows[0].id,
+        fullname: result.rows[0].fullname,
+        email: result.rows[0].email,
+        role: result.rows[0].role,
+      },
+      tokenExpired: false
+    });
+  } catch (error) {
+    console.error("Failed to find user", error);
+    return res.status(401).json({
+      success: false,
+      message: "Invalid or expired token",
+      user: null,
+      tokenExpired: error.name === "TokenExpiredError"
+    });
+  }
+});
 
 export default authRoutes;

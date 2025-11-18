@@ -5,7 +5,7 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
 import authRoutes from "./routes/authRoute.js";
-import productRoutes from "./routes/productsRoutes.js";
+import apartmentRoutes from "./routes/apartmentsRoute.js";
 
 const PORT = process.env.PORT || 8000;
 
@@ -59,7 +59,7 @@ app.get("/auth/sign-up", (req, res)=> {
  * ! ROUTES
  */
 app.use("/api/auth", authRoutes);
-app.use("/api/products", productRoutes);
+app.use("/api/apartments", apartmentRoutes);
 
 app.listen(PORT, ()=> {
     console.log(`Server is running on PORT: ${PORT}`);

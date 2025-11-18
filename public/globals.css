@@ -83,10 +83,17 @@ a {
 
 .logo {
     color: #2c3e50;
+    font-size: 1.8rem;
 }
 
 .logo span {
     color: #3498db;
+}
+
+@media (max-width: 640px) {
+    h1.logo {
+        font-size: 1.5rem;
+    }
 }
 
 .nav-links {
@@ -100,6 +107,7 @@ a {
     color: var(--text-color);
     transition: 0.3s;
     padding: 10px 15px;
+    font-size: 14px;
 }
 
 .nav-links a:hover {
@@ -115,6 +123,8 @@ a {
 #menu, #closeMenu {
     display: none;
 }
+
+
 
 /* navbar media queries */
 @media (max-width: 991px) {
@@ -159,6 +169,30 @@ a {
     }
 }
 
+.navbar .logout #logout-btn {
+    border: none;
+    outline: none;
+    padding: 10px 14px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #f9f9f9;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.navbar .logout #logout-btn:hover {
+    opacity: 70%;
+    transform: translate(3px);
+}
+
+@media (max-width: 991px){
+    .navbar .logout {
+        display: none;
+    }
+}
 
 /* hero section styles*/
 .hero-container {

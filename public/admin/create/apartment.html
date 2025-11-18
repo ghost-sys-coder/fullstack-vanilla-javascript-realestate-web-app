@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Apartment</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/apartment.css" />
+  </head>
+  <body>
+    <!-- navbar  -->
+    <header class="navbar" id="navbar"></header>
+
+    <section class="create-apartment form-wrapper">
+      <div class="header-text">
+        <h2>Create a New Apartment</h2>
+        <span class="sub-text">Add all details of the property below</span>
+      </div>
+
+      <form
+        class="apartment-form"
+        id="apartment-form"
+        enctype="multipart/form-data"
+      >
+        <div class="card">
+          <h3>Images</h3>
+          <label for="images" class="upload-area" id="upload-label">
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+            <span>Click to Upload Images</span>
+          </label>
+          <input
+            type="file"
+            name="images"
+            id="images"
+            multiple
+            accept="image/*"
+            class="hidden-file-input"
+          />
+
+          <div class="image-preview" id="image-preview"></div>
+        </div>
+
+        <!-- basic information -->
+        <div class="card">
+          <h3>Basic Information</h3>
+          <div class="card-content">
+            <label for="title">Apartment Title</label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              required
+              placeholder="Apartment title..."
+            />
+          </div>
+          <div class="card-content">
+            <label for="price">Price (UGX)</label>
+            <input
+              type="number"
+              name="price"
+              id="price"
+              placeholder="UGX 100,000"
+              required
+            />
+          </div>
+          <div class="card-content">
+            <label for="location">Location</label>
+            <input
+              type="text"
+              name="location"
+              id="location"
+              placeholder="Kampala, Kololo.."
+              required
+            />
+          </div>
+          <div class="card-content">
+            <label for="description">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              placeholder="Description..."
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- property details -->
+        <div class="card">
+          <h3>Property Details</h3>
+
+          <div class="grid">
+            <div class="card-content">
+              <label for="area">Total Area (sq.ft)</label>
+              <input
+                type="text"
+                name="area"
+                id="area"
+                required
+                placeholder="200 square feet"
+              />
+            </div>
+            <div class="card-content">
+              <label for="bedroom">Bedroom</label>
+              <input
+                type="number"
+                name="bedroom"
+                id="bedroom"
+                placeholder="2"
+                required
+              />
+            </div>
+            <div class="card-content">
+              <label for="bathroom">Bedroom</label>
+              <input
+                type="number"
+                name="bathroom"
+                id="bathroom"
+                placeholder="2"
+                required
+              />
+            </div>
+            <div class="card-content">
+              <label for="floor">Floor</label>
+              <input
+                type="text"
+                id="floor"
+                placeholder="Building floor"
+                required
+              />
+            </div>
+            <div class="card-content">
+              <label for="parking">Parking Available</label>
+              <select name="parking" id="parking">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <div class="card-content">
+              <label for="wifi">Wi-Fi</label>
+              <select name="wifi" id="wifi">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <div class="card-content">
+              <label for="year">Construction Year</label>
+              <input
+                type="number"
+                name="year"
+                id="year"
+                placeholder="Say 2020"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- nearby amenities -->
+        <div class="card">
+          <h3>What&apos;s Nearby</h3>
+          <div class="card-content">
+            <label for="education">Education</label>
+            <textarea name="education" id="education" placeholder="Schools nearby"></textarea>
+          </div>
+          <div class="card-content">
+            <label for="health">Health & Medicine</label>
+            <textarea name="health" id="health" placeholder="Health facilities neary by..."></textarea>
+          </div>
+          <div class="card-content">
+            <label for="food">Restaurants & Hotels</label>
+            <textarea name="food" id="food" placeholder="Restaurants & Hotels nearby..."></textarea>
+          </div>
+          <div class="card-content">
+            <label for="culture">Culture</label>
+            <textarea name="culture" id="culture" placeholder="Culture sites nearby..."></textarea>
+          </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" class="submit-btn">Save Apartment</button>
+        </div>
+
+        <p class="status"></p>
+      </form>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer" id="footer"></footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
