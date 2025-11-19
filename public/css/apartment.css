@@ -268,8 +268,34 @@ section {
 }
 .create-apartment .card .image-preview {
     display: grid;
-    gap: 2rem;
+    gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin-block: 1rem;
+}
+
+.create-apartment .card .image-preview div {
+    height: 250px;
+    width: 100%;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.create-apartment .card .image-preview div .remove-image-btn {
+    position: absolute;
+    top: 5%; left: 5%;
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 50%;
+    color: #f9f9f9;
+    background-color: #666;
+    cursor: pointer;
+}
+
+.create-apartment .card .image-preview img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 
