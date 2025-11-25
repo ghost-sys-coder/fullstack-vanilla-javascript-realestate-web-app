@@ -99,6 +99,7 @@ authForm.addEventListener("submit", async (event) => {
   const isSignup = pathname.includes("sign-up");
   const isSignIn = pathname.includes("sign-in");
 
+
   if (isSignup) {
     fullname = fullnameInput.value.trim();
     confirm = confirmInput.value.trim();
@@ -130,8 +131,7 @@ authForm.addEventListener("submit", async (event) => {
   }
 
   // prepare payload
-  const payload =
-    pathname === isSignup ? { fullname, email, password } : { email, password };
+  const payload = isSignup ? { fullname, email, password } : { email, password };
 
   setLoading(true);
 
@@ -143,7 +143,7 @@ authForm.addEventListener("submit", async (event) => {
 
       // delay before you route to the home page
       setTimeout(() => {
-        window.location.href = "/sign-in.html";
+        window.location.href = "/auth/sign-in.html";
       }, 5000);
     }
 
@@ -152,7 +152,6 @@ authForm.addEventListener("submit", async (event) => {
         withCredentials: true,
       });
 
-      console.log({ response });
       setStatus("Login successful!", "#16a34a");
 
       setTimeout(() => {

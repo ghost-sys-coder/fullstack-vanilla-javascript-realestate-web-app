@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/view.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="preload"
+      href="/assets/videos/video_one.mp4"
+      as="video"
+      type="video/mp4"
+    />
+    <title>Single Apartment</title>
+  </head>
+  <body>
+    <!-- Full page loader -->
+    <div class="page-loader">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- header -->
+    <header class="navbar" id="navbar"></header>
+
+    <section class="apartment-container" id="apartment-container">
+      <div class="skeleton-loader" id="skeleton">
+        <div class="skeleton-badge"></div>
+
+        <div class="skeleton-gallery">
+          <div class="skeleton-image large"></div>
+          <div class="skeleton-thumbnails">
+            <div class="skeleton-image small"></div>
+            <div class="skeleton-image small"></div>
+            <div class="skeleton-image small"></div>
+            <div class="skeleton-image small"></div>
+          </div>
+        </div>
+
+        <!-- Title & Price -->
+        <div class="skeleton-title"></div>
+        <div class="skeleton-price"></div>
+        <div class="skeleton-location"></div>
+
+        <!-- Details Grid -->
+        <div class="skeleton-details">
+          <div class="skeleton-detail-item"></div>
+          <div class="skeleton-detail-item"></div>
+          <div class="skeleton-detail-item"></div>
+          <div class="skeleton-detail-item"></div>
+        </div>
+
+        <!-- Description -->
+        <div class="skeleton-text-line"></div>
+        <div class="skeleton-text-line short"></div>
+        <div class="skeleton-text-line"></div>
+        <div class="skeleton-text-line medium"></div>
+
+        <!-- CTA Buttons -->
+        <div class="skeleton-cta"></div>
+        <div class="skeleton-cta short"></div>
+      </div>
+      <div class="apartment-content" id="apartment-content">
+        <p class="" id="property-role"></p>
+
+        <div class="apartment-header">
+          <div class="apartment-title" id="apartment-title"></div>
+          <div class="apartment-price" id="apartment-price"></div>
+        </div>
+
+        <!-- display images -->
+        <div class="images-grid" id="images-grid">
+          <div class="large-image"></div>
+          <div class="small-images"></div>
+        </div>
+
+        <!-- details  -->
+        <div class="details" id="details">
+          <div class="left-container">
+            <div class="description" id="description">
+              <h3 class="desc-title">Description</h3>
+              <p class="desc-text"></p>
+            </div>
+            <div class="property-details_container">
+              <h3 class="details-title">Property Details</h3>
+              <div class="property-details"></div>
+            </div>
+            <div class="property-amenities">
+              <h3 class="amenities-title">What's nearby?</h3>
+              <div class="amenities-container" id="amenities-container"></div>
+            </div>
+          </div>
+          <div class="right-container">
+            <div class="contact-form_container">
+              <form id="contact-form" class="contact-form">
+                <h4 class="">Contact Owner / Agent</h4>
+                <div class="contact-details"></div>
+
+                <div class="form-content">
+                  <div class="form-item">
+                    <label for="name">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Your name..."
+                      required
+                    />
+                  </div>
+                  <div class="form-item">
+                    <label for="email">Email</label>
+                    <input
+                      type="text"
+                      id="email"
+                      name="email"
+                      placeholder="Your email..."
+                      required
+                    />
+                  </div>
+                  <div class="form-item">
+                    <label for="contact">Contact</label>
+                    <input
+                      type="text"
+                      id="contact"
+                      name="contact"
+                      placeholder="Your phone number"
+                      required
+                    />
+                    <div class="form-item">
+                      <label for="description">Description</label>
+                      <textarea
+                        id="description"
+                        name="description"
+                        id="description"
+                        placeholder="Your message..."
+                      ></textarea>
+                    </div>
+                  </div>
+                  <button type="submit" class="cta-btn">Send Message</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer" id="footer"></footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/footer.js"></script>
+    <script src="/js/view.js"></script>
+  </body>
+</html>

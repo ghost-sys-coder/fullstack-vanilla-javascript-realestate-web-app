@@ -36,6 +36,10 @@ section {
     min-height: 80vh;
 }
 
+.display-none {
+    display: none;
+}
+
 .sr-only {
     position: absolute;
     width: 1px;
@@ -363,6 +367,101 @@ section {
     padding-block: 10px;
 }
 
+/* DYNAMIC LIST STYLES --- amenities section */
+.dynamic-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 12px 0 16px;
+    padding: 12px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    min-height: 60px;
+}
+.dynamic-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f8f9fa;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    animation: slideIn 0.3s ease-out;
+}
+.dynamic-item input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    color: #333;
+}
+.dynamic-item input::placeholder {
+    color: #999;
+}
+.dynamic-item button.remove-item {
+    background: #e74c3c;
+    color: #f9f9f9;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+.dynamic-item button.remove-item:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+}
+
+.add-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: #007bff;
+    color: #f9f9f9;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: fit-content;
+}
+.add-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+}
+.add-btn i {
+    font-size: 16px;
+}
+.dynamic-list:empty::before {
+    content: "No items added yet";
+    color: #aaa;
+    font-style: italic;
+    font-size: 13px;
+    text-align: center;
+    padding: 20px;
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 
 

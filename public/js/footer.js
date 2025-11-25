@@ -1,5 +1,5 @@
 //get path to the footer
-const footerPath = currentPage.includes("/admin") ? "../../components/footer.html" : "components/footer.html";
+const footerPath = currentPage.includes("/admin") ? "../../components/footer.html" : "/components/footer.html";
 
 // fetch and load footer
 fetch(footerPath)

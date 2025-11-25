@@ -9,6 +9,7 @@ export const pool = new Pool({
   },
 });
 
+// create tables
 async function connectToDB() {
   const client = await pool.connect();
 
@@ -16,36 +17,42 @@ async function connectToDB() {
     console.log("Establishing Connection...");
 
     // dropping the table deletes all users
-    // await client.query("DROP TABLE IF EXISTS products");
+    //await client.query("DROP TABLE IF EXISTS apartments");
     // await client.query("DROP TABLE IF EXISTS users");
 
-    // create tables
+    //create tables
     await client.query(`
         CREATE TABLE users(
         id SERIAL PRIMARY KEY,
         fullname VARCHAR,
         email VARCHAR,
         password VARCHAR,
-        role VARCHAR DEFAULT 'user'
+        role VARCHAR DEFAULT 'user',
+
+        -- i need to update the users with new columns without dropping it
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW()
         )
     `);
 
     await client.query(`
-    CREATE TABLE products(
+    CREATE TABLE apartments(
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    title VARCHAR,
-    address VARCHAR,
-    buying_price FLOAT,
-    rental_price FLOAT,
-    bedrooms INTEGER,
-    bathrooms INTEGER,
-    area FLOAT,
-    garages INTEGER,
-    status VARCHAR,
-    commercial BOOLEAN DEFAULT FALSE,
-    location VARCHAR,
-    images TEXT
+    
+    title TEXT NOT NULL,
+    price NUMERIC(12, 2) NOT NULL,
+    location TEXT NOT NULL,
+    description TEXT NOT NULL,
+    
+    details JSONB NOT NULL DEFAULT '{}',
+
+    amenities JSONB NOT NULL DEFAULT '{}',
+
+    images TEXT[] DEFAULT '{}',
+
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
     )
     `);
     console.log("Tables created!!");
@@ -57,3 +64,69 @@ async function connectToDB() {
   }
 }
 
+// update user table with phone number column
+async function updateUsersTableWithContact() {
+  const client = await pool.connect();
+
+  try {
+    console.log("Establishing connection...");
+
+    // update users table
+    await client.query(
+      `ALTER TABLE users
+      ADD COLUMN IF NOT EXISTS phone_number TEXT
+      `
+    );
+    console.log("phone contact column has been added!!");
+  } catch (error) {
+    console.log("Failed to update user table", error.stack);
+  }
+}
+
+// updated tables
+async function updateTables() {
+  const client = await pool.connect();
+  try {
+    console.log("Establishing connection...");
+
+    // update the user table
+    await client.query(
+      `ALTER TABLE users
+      ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW(),
+      ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT NOW()
+      `
+    );
+
+    console.log("The table has been updated!");
+  } catch (error) {
+    console.error("Failed to update table", error.stack);
+  } finally {
+    client.release();
+    pool.end();
+  }
+}
+
+// create search & filter indexes
+async function createIndexes() {
+  const client = await pool.connect();
+
+  try {
+    await client.query(
+      `CREATE INDEX IF NOT EXISTS idx_apartments_location ON apartments(location);
+      `
+    );
+
+    await client.query(
+      `CREATE INDEX IF NOT EXISTS idx_apartments_price ON apartments(price);
+      `
+    );
+    console.log("Search & field indices added!");
+  } catch (error) {
+    console.error("Failed to create indexes", error.stack);
+  } finally {
+    client.release();
+    pool.end();
+  }
+}
+
+// updateUsersTableWithContact();

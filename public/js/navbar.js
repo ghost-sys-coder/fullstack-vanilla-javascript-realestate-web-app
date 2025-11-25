@@ -6,8 +6,7 @@ let currentUserRole = null;
 let currentUser = null;
 
 // get path to navbar component
-const navbarPath = currentPage.includes("/admin") ? "../../components/navbar.html" : "components/navbar.html"
-
+const navbarPath = currentPage.includes("/admin") ? "../../components/navbar.html" : "/components/navbar.html"
 
 // fetch user information
 async function fetchUserRole() {
@@ -53,7 +52,7 @@ async function loadNavbar() {
       // inject an admin link
       if (currentUserRole === "admin") {
         const adminLink = document.createElement("a");
-        adminLink.href = "/admin/create/apartment.html";
+        adminLink.href = "/admin/create-apartment";
         adminLink.textContent = "Add New";
         adminLink.classList.add("nav-link");
 

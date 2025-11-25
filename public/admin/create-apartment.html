@@ -115,7 +115,7 @@
               />
             </div>
             <div class="card-content">
-              <label for="bathroom">Bedroom</label>
+              <label for="bathroom">Bathroom</label>
               <input
                 type="number"
                 name="bathroom"
@@ -129,6 +129,7 @@
               <input
                 type="text"
                 id="floor"
+                name="floor"
                 placeholder="Building floor"
                 required
               />
@@ -149,11 +150,23 @@
             </div>
             <div class="card-content">
               <label for="year">Construction Year</label>
+              <input type="date" name="year" id="year" />
+            </div>
+            <div class="card-content">
+              <label for="role">Apartment Role</label>
+              <select name="role" id="role" required>
+                <option value="Rent">Rent</option>
+                <option selected value="Sale">Sale</option>
+              </select>
+            </div>
+            <div class="display-none">
+              <label for="rental-price">Rental Price</label>
               <input
                 type="number"
-                name="year"
-                id="year"
-                placeholder="Say 2020"
+                name="rental-price"
+                id="rental-price"
+                min="1"
+                placeholder="10"
               />
             </div>
           </div>
@@ -164,24 +177,40 @@
           <h3>What&apos;s Nearby</h3>
           <div class="card-content">
             <label for="education">Education</label>
-            <textarea name="education" id="education" placeholder="Schools nearby"></textarea>
+            <div class="dynamic-list" id="education-list"></div>
+            <button type="button" class="add-btn" data-target="education-list">
+              <i class="fa fa-plus"></i>
+              <span>Add School</span>
+            </button>
           </div>
           <div class="card-content">
             <label for="health">Health & Medicine</label>
-            <textarea name="health" id="health" placeholder="Health facilities neary by..."></textarea>
+            <div class="dynamic-list" id="health-list"></div>
+            <button type="button" class="add-btn" data-target="health-list">
+              <i class="fa fa-plus"></i>
+              <span>Add Facility</span>
+            </button>
           </div>
           <div class="card-content">
             <label for="food">Restaurants & Hotels</label>
-            <textarea name="food" id="food" placeholder="Restaurants & Hotels nearby..."></textarea>
+            <div class="dynamic-list" id="restaurants-list"></div>
+            <button type="button" class="add-btn" data-target="restaurants-list">
+              <i class="fa fa-plus"></i>
+              <span>Add Restaurant / Hotel</span>
+            </button>
           </div>
           <div class="card-content">
             <label for="culture">Culture</label>
-            <textarea name="culture" id="culture" placeholder="Culture sites nearby..."></textarea>
+            <div class="dynamic-list" id="culture-list"></div>
+            <button type="button" class="add-btn" data-target="culture-list">
+              <i class="fa fa-plus"></i>
+              <span>Add Cultural site</span>
+            </button>
           </div>
         </div>
 
         <div class="btn-container">
-            <button type="button" class="submit-btn">Save Apartment</button>
+          <button type="submit" class="submit-btn">Save Apartment</button>
         </div>
 
         <p class="status" id="status"></p>
