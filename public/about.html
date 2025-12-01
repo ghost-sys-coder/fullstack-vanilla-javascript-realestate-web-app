@@ -1,19 +1,198 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/globals.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/globals.css" />
+    <link rel="stylesheet" href="/css/loading.css" />
     <title>About DreamHomes</title>
-</head>
-<body>
-<header id="navbar" class="navbar"></header>
-<h1>About Us Page</h1>
+  </head>
+  <body>
+    <header id="navbar" class="navbar">
+      <div class="skeleton-placeholder" id="skeleton-placeholder"></div>
+    </header>
 
-<footer class="footer" id="footer"></footer>
+    <!-- Hero Section -->
+    <section>
+      <div class="about_hero-container">
+        <div class="about_video-section">
+          <video
+            src="/assets/videos/video_one.mp4"
+            autoplay
+            muted
+            loop
+            class="hero-video"
+          >
+            <source src="/assets/videos/video_one.mp4" />
+          </video>
+          <div class="overlay"></div>
 
-<script src="app.js"></script>
-</body>
+          <div class="about_hero-content">
+            <div class="top-left">
+              <h1>DreamHomes.</h1>
+              <span>Watch video</span>
+            </div>
+
+            <div class="center">
+              <button type="button" class="play-btn">
+                <i class="fa fa-play"></i>
+              </button>
+            </div>
+
+            <div class="bottom-right">
+              <p class="description">
+                We provide premium real estate solutions designed to make your
+                property search simple, transparent, and reliable. Whether
+                you're buying, renting, or investing, our platform connects you
+                to verified listings, trusted agents, and secure
+                transactions—all in one place.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="about_stats-section">
+          <div class="stat-item">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            <h2>50</h2>
+            <p>Properties Sold</p>
+          </div>
+          <div class="stat-item">
+            <i class="fa fa-h-square" aria-hidden="true"></i>
+            <h2>Over 60</h2>
+            <p>Apartments Listed</p>
+          </div>
+          <div class="stat-item">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <h2>Over 200</h2>
+            <p>Satisfied Clients</p>
+          </div>
+          <div class="stat-item">
+            <i class="fa fa-trophy" aria-hidden="true"></i>
+            <h2>9</h2>
+            <p>Multiple Awards</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- stories section -->
+    <section class="about_advice-section">
+      <div class="about_expert-advice">
+        <div class="expert_advice-image">
+          <img
+            src="/assets/images/realtor-client-image.png"
+            alt="realtor advice"
+          />
+        </div>
+        <div class="expert_advice-content">
+          <div class="">
+            <h3>Expert advice for your real estate needs!</h3>
+            <p>
+              We provide personalized guidance to help you make the best
+              decisions in buying, selling or renting properties. Our team is
+              dedicated to your success!
+            </p>
+            <a href="#agents" class="cta-btn secondary">Meet our Team</a>
+          </div>
+        </div>
+      </div>
+      <div class="about_stories-section">
+        <h4>Our client&apos;s success is our success</h4>
+        <div class="stories-grid">
+          <div class="story-card">
+            <i class="fas fa-home"></i>
+            <h3>Property Sold</h3>
+            <p>Helped over 150 families find their dream homes</p>
+            <a class="cta-btn" href="/">Discover More →</a>
+          </div>
+          <div class="story-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Market Leaders</h3>
+            <p>Top-rated agency in Uganda for 5 consecutive years</p>
+            <a class="cta-btn" href="/property">Learn More</a>
+          </div>
+          <div class="story-card">
+            <i class="fa fa-award"></i>
+            <h3>Best Agency 2024</h3>
+            <p>Awarded by Uganda Real Estate Association</p>
+            <a class="cta-btn" href="/property">More Properties</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- agents section -->
+    <section class="about_agents-section">
+      <div class="image-content">
+        <img src="/assets/images/ai-real-estate-image.png" alt="agents" />
+        <div class="overlay"></div>
+        <div class="content">
+          <h4>Discover your property</h4>
+          <p>Speak to any of our agents below</p>
+          <a href="#agents" class="cta-btn"> Find your agent! </a>
+        </div>
+      </div>
+      <div class="agents-container" id="agents">
+        <div class="agents-header" id="agents-header">
+          <h4 class="">Our Professional Agents</h4>
+        </div>
+        <div class="agents-grid_skeleton" id="agents-grid_skeleton">
+          <div class="grid-item_skeleton"></div>
+          <div class="grid-item_skeleton"></div>
+          <div class="grid-item_skeleton"></div>
+          <div class="grid-item_skeleton"></div>
+          <div class="grid-item_skeleton"></div>
+          <div class="grid-item_skeleton"></div>
+        </div>
+        <div class="agents-grid" id="agents-grid" style="display: none;">
+          
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" id="footer"></footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      // Run on every page except the auth pages themselves
+      if (!window.location.pathname.includes("/auth/")) {
+        document.addEventListener("click", function (e) {
+          // Look for any link/button that leads to sign-in or sign-up
+          let link = e.target.closest(
+            'a[href*="sign-in"], a[href*="sign-up"], button[data-auth]'
+          );
+          if (!link) return;
+
+          let href = link.getAttribute("href") || link.dataset.href;
+          if (!href || (!href.includes("sign-in") && !href.includes("sign-up")))
+            return;
+
+          // Prevent default only if we are going to modify the URL
+          e.preventDefault();
+
+          const redirect = encodeURIComponent(
+            window.location.pathname + window.location.search
+          );
+          const separator = href.includes("?") ? "&" : "?";
+          const finalUrl = `${href}${separator}redirect=${redirect}`;
+
+          window.location.href = finalUrl;
+        });
+      }
+    </script>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/about.js"></script>
+    <script src="/js/footer.js"></script>
+  </body>
 </html>

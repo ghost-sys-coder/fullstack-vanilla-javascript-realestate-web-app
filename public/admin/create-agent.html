@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/globals.css" />
+    <link rel="stylesheet" href="/css/loading.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>DreamHomes</title>
+  </head>
+  <body>
+    <!-- header -->
+    <header class="navbar" id="navbar">
+      <div class="skeleton-placeholder" id="skeleton-placeholder"></div>
+    </header>
+
+    <section class="create_agent-page">
+      <div class="create_agent-cotainer">
+        <div class="agent_page-header">
+          <h1>Add New Agent</h1>
+          <p>Fill in the details below to create a new agent profile</p>
+        </div>
+
+        <form class="create_agent-form" id="agent-form">
+          <div class="form-grid">
+            <div class="profile-upload">
+              <h3>Agent Profile Photo</h3>
+              <div class="upload-area" id="upload-area">
+                <input
+                  type="file"
+                  name="profileImage"
+                  id="profile-image"
+                  accept="image/*"
+                  required
+                />
+
+                <div class="upload-placeholder">
+                  <i class="fa fa-cloud-upload-alt"></i>
+                  <p>Click to upload photo</p>
+                </div>
+
+                <div class="preview" id="image-preview">
+                  <img src="" id="preview-img" alt="preview image" />
+                  <button type="button" id="remove-image" class="remove-btn">
+                    X
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-details">
+              <h3>Agent Information</h3>
+
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  required
+                  placeholder="E.g John Doe"
+                />
+              </div>
+              <div class="form-group">
+                <label for="mobile">Mobile</label>
+                <input
+                  type="text"
+                  name="mobile"
+                  id="mobile"
+                  placeholder="+256 700 000 000"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="johndoe@example.com"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="role">Role / Title</label>
+                <input
+                  type="text"
+                  name="role"
+                  id="role"
+                  placeholder="Senior Sales Agent..."
+                  required
+                />
+              </div>
+
+              <!-- social links -->
+              <h3>Social Links</h3>
+              <div class="social-links">
+                <div class="form-group">
+                  <label for="facebook"
+                    ><i class="fab fa-facebook"></i>Facebook</label
+                  >
+                  <input
+                    type="url"
+                    name="facebook"
+                    id="facebook"
+                    placeholder="your facebook profile url..."
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="twitter"
+                    ><i class="fab fa-twitter"></i>Twitter</label
+                  >
+                  <input
+                    type="url"
+                    name="twitter"
+                    id="twitter"
+                    placeholder="your twitter profile url..."
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="linkedin"
+                    ><i class="fab fa-linkedin"></i>LinkedIn</label
+                  >
+                  <input
+                    type="url"
+                    name="linkedin"
+                    id="linkedin"
+                    placeholder="linkedin profile url..."
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="instagram"
+                    ><i class="fab fa-instagram"></i>Instagram</label
+                  >
+                  <input
+                    type="url"
+                    name="instagram"
+                    id="instagram"
+                    placeholder="instagram profile url..."
+                  />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="submit-btn">
+                  <i class="fas fa-user-plus"></i>
+                  <span>Create Agent</span>
+                </button>
+                <a href="/" class="cancel-btn">Cancel</a>
+              </div>
+              <div class="status" id="status"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer" id="footer"></footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      // Run on every page except the auth pages themselves
+      if (!window.location.pathname.includes("/auth/")) {
+        document.addEventListener("click", function (e) {
+          // Look for any link/button that leads to sign-in or sign-up
+          let link = e.target.closest(
+            'a[href*="sign-in"], a[href*="sign-up"], button[data-auth]'
+          );
+          if (!link) return;
+
+          let href = link.getAttribute("href") || link.dataset.href;
+          if (!href || (!href.includes("sign-in") && !href.includes("sign-up")))
+            return;
+
+          // Prevent default only if we are going to modify the URL
+          e.preventDefault();
+
+          const redirect = encodeURIComponent(
+            window.location.pathname + window.location.search
+          );
+          const separator = href.includes("?") ? "&" : "?";
+          const finalUrl = `${href}${separator}redirect=${redirect}`;
+
+          window.location.href = finalUrl;
+        });
+      }
+    </script>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/footer.js"></script>
+    <script src="/js/create-agent.js"></script>
+  </body>
+</html>

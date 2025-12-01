@@ -64,6 +64,38 @@ async function connectToDB() {
   }
 }
 
+// create agents table
+async function createAgentsTable() {
+  const client = await pool.connect();
+
+  try {
+    console.log("Establishing Connection...");
+    console.log("Creating Agents Table...");
+
+    // query to drop table table
+    //await client.query("DROP TABLE IF EXISTS agents");
+
+    await client.query(`
+      CREATE TABLE agents(
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        mobile TEXT NOT NULL,
+        role TEXT NOT NULL,
+        socials TEXT[],
+        profile_image TEXT NOT NULL
+      )
+    `);
+
+    console.log("Agents table has been created!");
+  } catch (error) {
+    console.error("Connection Failed:", error.stack);
+  } finally {
+    client.release();
+    pool.end();
+  }
+}
+
 // update user table with phone number column
 async function updateUsersTableWithContact() {
   const client = await pool.connect();
@@ -129,4 +161,4 @@ async function createIndexes() {
   }
 }
 
-// updateUsersTableWithContact();
+// createAgentsTable();

@@ -25,3 +25,18 @@ export const uploadToS3 = async (file) => {
 
     return `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${fileKey}`
 }
+
+
+export const uploadAgentProfileProfile = async (file) => {
+    const fileExt = file.originalname.split(".").pop();
+    const fileKey = `agents/${crypto.randomBytes(16).toString("hex")}.${fileExt}`;
+
+    await s3Client.send(new PutObjectCommand({
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: fileKey,
+        Body: file.buffer,
+        ContentType: file.mimetype
+    }));
+
+    return `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${fileKey}`;
+}

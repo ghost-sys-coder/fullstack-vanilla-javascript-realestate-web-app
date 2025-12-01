@@ -1,20 +1,175 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/globals.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/globals.css" />
+    <link rel="stylesheet" href="/css/loading.css" />
     <title>Contact</title>
-</head>
-<body>
-<header id="navbar" class="navbar"></header>
-<h1>Contact Us Page</h1>
+  </head>
+  <body>
+    <header id="navbar" class="navbar">
+      <div class="skeleton-placeholder" id="skeleton-placeholder"></div>
+    </header>
 
+    <!-- Hero + Contact Section -->
+    <main id="contact_page" class="contact-hero">
+      <div class="container">
+        <div class="bg-overlay"></div>
+        <div class="contact-grid">
+          <!-- Contact Form -->
+          <div class="contact-form-card">
+            <div class="form-header">
+              <h2>Get in Touch</h2>
+              <p>Send us a message and our team will respond within 24 hours</p>
+            </div>
 
-<footer class="footer" id="footer"></footer>
+            <form id="contact-form" class="contact-form">
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your Full Name"
+                  required
+                />
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="form-group">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Your Email Address"
+                  required
+                />
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="form-group">
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="Your Phone Number"
+                  required
+                />
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="form-group">
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  placeholder="How can we help you today?"
+                  required
+                ></textarea>
+                <i class="fas fa-comment-dots"></i>
+              </div>
 
-<script src="/app.js"></script>
-</body>
+              <button type="submit" class="submit-btn" id="submit-btn">
+                <span>Send Message</span>
+                <i class="fas fa-paper-plane"></i>
+              </button>
+
+              <div class="" id="form-status"></div>
+            </form>
+          </div>
+
+          <!-- Contact Info & Map -->
+          <div class="contact-info-card">
+            <div class="info-header">
+              <h2>We're Here to Help</h2>
+              <p>
+                Reach out anytime — our team is ready to assist you with your
+                real estate journey.
+              </p>
+            </div>
+
+            <div class="contact-details">
+              <div class="contact-item">
+                <div class="icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                  <h4>Visit Our Office</h4>
+                  <p>
+                    Victoria Mall, Level 2<br />Katabi, Entebbe Road<br />Kampala,
+                    Uganda
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="icon">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div>
+                  <h4>Call Us</h4>
+                  <a href="tel:+256750242627">+256 750 242 627</a><br />
+                  <a href="tel:+256700123456">+256 700 123 456</a>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                  <h4>Email Us</h4>
+                  <a href="mailto:support@dreamhomes.ug"
+                    >support@dreamhomes.ug</a
+                  ><br />
+                  <a href="mailto:info@dreamhomes.ug">info@dreamhomes.ug</a>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="icon">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div>
+                  <h4>Business Hours</h4>
+                  <p>
+                    Mon - Fri: 8:00 AM - 6:00 PM<br />Saturday: 9:00 AM - 4:00
+                    PM<br />Sunday: Closed
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <a href="#" class="social-icon"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" class="social-icon"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer" id="footer"></footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/footer.js"></script>
+    <script src="/js/contact.js"></script>
+  </body>
 </html>

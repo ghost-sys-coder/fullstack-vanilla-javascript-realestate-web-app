@@ -12,10 +12,13 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="/css/apartment.css" />
+    <link rel="stylesheet" href="/css/loading.css" />
   </head>
   <body>
     <!-- navbar  -->
-    <header class="navbar" id="navbar"></header>
+    <header class="navbar" id="navbar">
+      <div class="skeleton-placeholder" id="skeleton-placeholder"></div>
+    </header>
 
     <section class="create-apartment form-wrapper">
       <div class="header-text">
@@ -194,7 +197,11 @@
           <div class="card-content">
             <label for="food">Restaurants & Hotels</label>
             <div class="dynamic-list" id="restaurants-list"></div>
-            <button type="button" class="add-btn" data-target="restaurants-list">
+            <button
+              type="button"
+              class="add-btn"
+              data-target="restaurants-list"
+            >
               <i class="fa fa-plus"></i>
               <span>Add Restaurant / Hotel</span>
             </button>
@@ -224,6 +231,33 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
       referrerpolicy="no-referrer"
     ></script>
+    <script>
+      // Run on every page except the auth pages themselves
+      if (!window.location.pathname.includes("/auth/")) {
+        document.addEventListener("click", function (e) {
+          // Look for any link/button that leads to sign-in or sign-up
+          let link = e.target.closest(
+            'a[href*="sign-in"], a[href*="sign-up"], button[data-auth]'
+          );
+          if (!link) return;
+
+          let href = link.getAttribute("href") || link.dataset.href;
+          if (!href || (!href.includes("sign-in") && !href.includes("sign-up")))
+            return;
+
+          // Prevent default only if we are going to modify the URL
+          e.preventDefault();
+
+          const redirect = encodeURIComponent(
+            window.location.pathname + window.location.search
+          );
+          const separator = href.includes("?") ? "&" : "?";
+          const finalUrl = `${href}${separator}redirect=${redirect}`;
+
+          window.location.href = finalUrl;
+        });
+      }
+    </script>
     <script src="/js/navbar.js"></script>
     <script src="/js/footer.js"></script>
     <script src="/js/apartment.js"></script>

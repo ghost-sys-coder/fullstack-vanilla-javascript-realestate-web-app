@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 
 import authRoutes from "./routes/authRoute.js";
 import apartmentRoutes from "./routes/apartmentsRoute.js";
+import agentsRoutes from "./routes/agentsRoute.js";
 import verifyToken, { adminOnly } from "./middleware/authMiddleware.js";
 
 const PORT = process.env.PORT || 8000;
@@ -68,6 +69,10 @@ app.get("/admin/create-apartment", verifyToken, adminOnly, (req, res) => {
     res.sendFile(path.join(__dirname, "../public/admin", "create-apartment.html"));
 });
 
+app.get("/admin/create-agent", verifyToken, adminOnly, (req, res) => {
+    res.sendFile(path.join(process.cwd(), "/public/admin", "/create-agent.html"))
+})
+
 // rendering apartment pages on the frontend
 app.get("/apartments/view", (req, res) => {
     res.sendFile(path.join(process.cwd(), "/public/apartments", "view.html"));
@@ -78,6 +83,7 @@ app.get("/apartments/view", (req, res) => {
  */
 app.use("/api/auth", authRoutes);
 app.use("/api/apartments", apartmentRoutes);
+app.use("/api/agents", agentsRoutes);
 
 app.listen(PORT, ()=> {
     console.log(`Server is running on PORT: ${PORT}`);

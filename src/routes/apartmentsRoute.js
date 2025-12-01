@@ -1,5 +1,4 @@
 import { Router } from "express";
-import path from "path";
 import verifyToken, { adminOnly } from "../middleware/authMiddleware.js";
 import { upload } from "../middleware/uploadMiddleware.js";
 import { uploadToS3 } from "../utils/awss3.js";
@@ -112,6 +111,23 @@ apartmentRoutes.get("/:id", async (req, res) => {
  * METHOD GET - Get all apartments
  * ROUTE - /apartment
  */
-apartmentRoutes.get("/", async (req, res) => {});
+apartmentRoutes.get("/", async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT * FROM apartments
+      `);
+    return res.status(200).json({
+      success: true,
+      message: "Properties fetched!!",
+      apartments: result.rows
+    })
+  } catch (error) {
+    console.error("Internal Server Error", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch properties"
+    });
+  }
+});
 
 export default apartmentRoutes;

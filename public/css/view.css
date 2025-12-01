@@ -172,6 +172,27 @@ a {
     }
 }
 
+.navbar .sign-in {
+    border: none;
+    outline: none;
+    padding: 10px 14px;
+    border-radius: 5px;
+    background-color: #007bff;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.navbar .sign-in a {
+    color: #f9f9f9;
+}
+
+.navbar .sign-in:hover {
+    opacity: 70%;
+    transform: translate(3px);
+}
+
 .navbar .logout #logout-btn {
     border: none;
     outline: none;
@@ -193,6 +214,10 @@ a {
 
 @media (max-width: 991px){
     .navbar .logout {
+        display: none;
+    }
+
+    .navbar .sign-in {
         display: none;
     }
 }

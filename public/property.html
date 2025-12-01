@@ -1,23 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/globals.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/globals.css" />
+    <link rel="stylesheet" href="/css/loading.css">
+    <link rel="stylesheet" href="/css/properties.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Property</title>
-</head>
-<body>
-<header class="navbar" id="navbar">
+  </head>
+  <body>
+    <header class="navbar" id="navbar">
+      <div class="skeleton-placeholder" id="skeleton-placeholder"></div>
+    </header>
+   
+    <section class="properties-page" id="properties-page">
+      <div class="properties-container_skeleton" id="properties-container_skeleton">
+        <div class="item-skeleton"></div>
+        <div class="item-skeleton"></div>
+        <div class="item-skeleton"></div>
+        <div class="item-skeleton"></div>
+        <div class="item-skeleton"></div>
+        <div class="item-skeleton"></div>
+      </div>
+      <div class="properties-container" id="properties-container" style="display: none;">
 
-</header>
-<h1>Properties Page</h1>
+      </div>
+    </section>
 
-<footer class="footer" id="footer"></footer>
+    <footer class="footer" id="footer"></footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js" referrerpolicy="no-referrer"></script>
-<script src="app.js"></script>
-<script src="/js/navbar.js"></script>
-<script src="/js/footer.js"></script>
-</body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/footer.js"></script>
+    <script src="/js/fetchproperties.js"></script>
+  </body>
 </html>

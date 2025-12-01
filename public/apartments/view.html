@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/view.css" />
+    <link rel="stylesheet" href="/css/loading.css">
+    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -26,7 +28,9 @@
     </div>
 
     <!-- header -->
-    <header class="navbar" id="navbar"></header>
+    <header class="navbar" id="navbar">
+      <div class="skeleton-placeholder" id="skeleton-placeholder"></div>
+    </header>
 
     <section class="apartment-container" id="apartment-container">
       <div class="skeleton-loader" id="skeleton">
@@ -65,7 +69,7 @@
         <div class="skeleton-cta"></div>
         <div class="skeleton-cta short"></div>
       </div>
-      <div class="apartment-content" id="apartment-content">
+      <div class="apartment-content" id="apartment-content" style="display: none;">
         <p class="" id="property-role"></p>
 
         <div class="apartment-header">
@@ -95,6 +99,7 @@
               <div class="amenities-container" id="amenities-container"></div>
             </div>
           </div>
+
           <div class="right-container">
             <div class="contact-form_container">
               <form id="contact-form" class="contact-form">

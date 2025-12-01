@@ -27,6 +27,11 @@ const confirmInput = document.getElementById("confirm-password");
 
 const { pathname } = window.location;
 
+// get redirect details
+const params = new URLSearchParams(window.location.search);
+const redirectTo = params.get("redirect") || "/";
+
+
 // Create a small status element
 let statusElement = document.querySelector(".form-status");
 if (!statusElement) {
@@ -154,9 +159,10 @@ authForm.addEventListener("submit", async (event) => {
 
       setStatus("Login successful!", "#16a34a");
 
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 3000);
+      window.location.href = redirectTo;
+      // setTimeout(() => {
+      //   window.location.href = redirectTo;
+      // }, 3000);
     }
   } catch (error) {
     console.error("Something went wrong!", error);

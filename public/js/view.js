@@ -10,7 +10,7 @@ async function loadApartment() {
     content.innerHTML = "<h2>Invalid apartment ID</h2>";
     skeleton.style.display = "none";
     return;
-  }
+}
 
   try {
     setTimeout(async () => {
@@ -49,7 +49,7 @@ function renderApartment(apartment) {
     <p>${apartment.location}</p>
     `
     document.getElementById("apartment-price").innerHTML = `
-    <h2>UGX${apartment.price}</h2>
+    <h2>UGX${Number(apartment.price).toLocaleString()}</h2>
     <span>${apartment?.details?.area}/sq.ft</span>
     `
 
