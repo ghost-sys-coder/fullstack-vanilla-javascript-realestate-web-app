@@ -11,7 +11,7 @@ const apartmentRoutes = Router();
  * ROUTE - /apartment/create
  */
 apartmentRoutes.post(
-  "/add",
+  "/",
   verifyToken,
   adminOnly,
   upload.array("images", 10),
@@ -55,15 +55,15 @@ apartmentRoutes.post(
 
 /**
  * METHOD PUT - Modify / update product
- * ROUTE - /apartment/update/:id
+ * ROUTE - /apartment/:id
  */
-apartmentRoutes.put("/update/:id", async (req, res) => {});
+apartmentRoutes.put("/:id", async (req, res) => {});
 
 /**
  * METHOD DELETE - Delete apartment
- * ROUTE - /apartment/delete/:id
+ * ROUTE - /apartment/:id
  */
-apartmentRoutes.delete("/delete/:id", async (req, res) => {});
+apartmentRoutes.delete("/:id", async (req, res) => {});
 
 /**
  * METHOD GET - Get single apartment by id
@@ -107,27 +107,61 @@ apartmentRoutes.get("/:id", async (req, res) => {
   }
 });
 
-/**
- * METHOD GET - Get all apartments
- * ROUTE - /apartment
+/** 
+ * METHOD GET - Get apartments based whether role is true or false
+ * role = true => apartment is for sale
+ * role = false => apartment is for rent
+ * ROUTES /apartments?role=true OR /apartments
  */
 apartmentRoutes.get("/", async (req, res) => {
   try {
-    const result = await pool.query(`
-      SELECT * FROM apartments
-      `);
+    const { role } = req.query;
+
+    let query = `SELECT * FROM apartments`;
+    let params = [];
+
+    if (role !== undefined) {
+      const isForSale = role === "true";
+      query += ` WHERE details->>'role' = $1`;
+      params.push(isForSale.toString())
+    }
+
+    const results = await pool.query(query, params);
+
     return res.status(200).json({
       success: true,
-      message: "Properties fetched!!",
-      apartments: result.rows
-    })
+      message: `${results.rowCount} apartment(s) fetched`,
+      apartments: results.rows
+    });
+
   } catch (error) {
-    console.error("Internal Server Error", error);
+    console.log("something went wrong!", error);
     return res.status(500).json({
       success: false,
-      message: "Failed to fetch properties"
+      message: "Something went wrong! Try again"
     });
   }
 });
+
+
+/**
+ * METHOD GET - Get apartment locations
+ * ROUTE - /apartments/location
+ */
+apartmentRoutes.get("/locations/list", async (req, res) => {
+  try {
+    return res.status(200).json({
+      success: false,
+      message: "Apartments fetched"
+    });
+  } catch (error) {
+    console.error("Failed to fetch locations", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch locations"
+    })
+  }
+})
+
 
 export default apartmentRoutes;

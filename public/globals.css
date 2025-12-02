@@ -319,6 +319,33 @@ a {
   color: #333333;
 }
 
+/* sample apartments grid skeleton  */
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  margin-block: 1rem;
+  animation: pulse 1.8s infinite ease-in-out;
+}
+.skeleton-item {
+  width: 100%;
+  height: 200px;
+  box-shadow: 0 10px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: linear-gradient(135deg, #e0e0e0 25%, #f9f9f9 50%, #e0e0e0 75%);
+  animation: loading 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1;}
+  50% { opacity: 0.8;}
+}
+@keyframes loading {
+  0% { background-position: 200% 0;}
+  100% { background-position: -200% 0;}
+}
+
 .apartments-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -372,6 +399,7 @@ a {
   font-size: 12px;
   font-weight: bold;
   padding-bottom: 4px;
+  color: #100E2C;
 }
 
 .apartments-grid .apartment-card .apartment-info p {
@@ -384,6 +412,8 @@ a {
 .apartments-grid .apartment-card .apartment-info h4 {
   font-weight: bold;
   font-size: 15px;
+  color: #000000;
+  padding-top: 5px;
 }
 
 .apartments-grid .apartment-card .apartment-info .features {
@@ -635,11 +665,13 @@ a {
   font-weight: bold;
   padding-bottom: 8px;
   font-size: 10px;
+  color: #000000;
 }
 
 .commercial-apartments_grid .apartment-card .text-content .title-price p {
   font-weight: bold;
   font-size: 14px;
+  color: #100E2C;
 }
 
 .commercial-apartments_grid .apartment-card .text-content .amenities {
@@ -662,12 +694,14 @@ a {
 }
 
 .commercial-apartments_grid .apartment-card .text-content .amenities div i {
-  font-size: 14px;
+  font-size: 24px;
+  color: #100E2C;
 }
 
 .commercial-apartments_grid .apartment-card .text-content .amenities div span {
   font-weight: lighter;
-  font-size: 10px;
+  font-size: 15px;
+  color: #100E2C;
 }
 
 /* client contact form */

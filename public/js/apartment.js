@@ -174,7 +174,7 @@ form.addEventListener("submit", async (e) => {
 
   // send data to the backend
   try {
-      const response = await axios.post("/api/apartments/add", submitData, {
+      const response = await axios.post("/api/apartments", submitData, {
         headers: { "Content-Type": "multipart/form-data"}
       });
       

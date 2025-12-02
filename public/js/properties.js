@@ -1,124 +1,176 @@
-import properties from "../data/properties.js";
+import locationsData from "../data/properties.js";
 
 const propertiesGrid = document.getElementById("apartments-grid");
+const sampleApartmentsSkeleton = document.getElementById("sample-apartments");
 
-function renderApartments (){
-    propertiesGrid.innerHTML = properties.map((property) => `
+async function renderApartments() {
+  try {
+    const response = await axios.get("/api/apartments", {
+      withCredentials: true,
+    });
+    sampleApartmentsSkeleton.style.display = "none";
+    propertiesGrid.style.display = "grid";
+
+    const properties = (await response.data?.apartments) || [];
+
+    if (properties.length === 0) {
+      propertiesGrid.innerHTML = "<p>No properties Found!</p>";
+    }
+
+    properties?.map((property) => {
+      const details = property?.details || {};
+      const role = details?.role === true;
+      const isRole = !role;
+
+      const singleProperty = document.createElement("a");
+      singleProperty.href = `/apartments/view?id=${property.id}`;
+
+      singleProperty.innerHTML = `
     <div class="apartment-card">
     
-    <div class="badge ${property.status === "for sale" ? "sale" : "rent"}">
-        ${property.status === "for sale" ? "For sale" : "For rent"}
+    <div class="badge ${role === true ? "sale" : "rent"}">
+        ${role === true ? "For sale" : "For rent"}
     </div>
     <img src=${property.images[0]} alt=${property.title} class="property-image">
     <div class="apartment-info">
         <h3>${property.title}</h3>
-        <p>${property.address}</p>
-        <h4>$ ${property.price.toLocaleString()}</h4>
+        <p>${property.location}</p>
+        <h4>UGX ${Number(property.price.toLocaleString())}</h4>
         <div class="features">
             <div class="feature">
                 <div class="">
                 <i class="fa fa-bed"></i>
-                <span>${property.bedrooms}</span>
+                <span>${details.bedroom}</span>
                 </div>
                 <span class="feature-text">Beds</span>
             </div>
             <div class="feature">
                 <div class="">
                     <i class="fa fa-bath"></i>
-                    <span>${property.bathrooms}</span>
+                    <span>${details.bathroom}</span>
                 </div>
                 <span class="feature-text">Bathrooms</span>
             </div>
             <div class="feature">
                 <div class="">
                     <i class="fa fa-ruler-combined"></i>
-                    <span>${property.area}</span>
+                    <span>${details.area}</span>
                 </div>
                 <span class="feature-text">Sqft</span>
-            </div>
-            <div class="feature">
-                <div class="">
-                <i class="fa fa-car"></i>
-                <span>${property.garages}</span>
-                </div>
-                <span class="feature-text">Garages</span>
             </div>
         </div>
     </div>
     </div>
-    `).join("");
+        `;
+
+      propertiesGrid.appendChild(singleProperty);
+    });
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+    propertiesGrid.innerHTML = "<p>Failed to fetch properties. Try again!</p>";
+  }
 }
 
-
-renderApartments();
-
-
+document.addEventListener("DOMContentLoaded", renderApartments());
 
 // Rendering commercial apartments
-const commercialApartmentsGrid = document.getElementById("commercial-apartments_grid");
+const commercialApartmentsGrid = document.getElementById(
+  "commercial-apartments_grid"
+);
+const commercialGridSkeleton = document.getElementById(
+  "commercial-grid_skeleton"
+);
 
-const renderCommercialApartments = ()=> {
-    const commercialProperties = properties.filter(property => property.commercial === true);
+const renderCommercialApartments = async () => {
+  try {
+    const response = await axios.get(
+      `/api/apartments?role=${true}`
+    );
 
-    commercialApartmentsGrid.innerHTML = commercialProperties.map(property => `
+    commercialGridSkeleton.style.display = "none";
+    commercialApartmentsGrid.style.display = "grid";
+
+    const apartments = (await response.data?.apartments) || [];
+
+    if (apartments?.length === 0) {
+      commercialApartmentsGrid.innerHTML = "<p>No properties found!</p>";
+      return;
+    }
+
+    apartments?.map((property) => {
+      const details = property?.details || {};
+      const role = details?.role === true;
+      const isRole = !role;
+
+      const singleProperty = document.createElement("a");
+      singleProperty.href = `/apartments/view?id=${property.id}`;
+
+      singleProperty.innerHTML = `
         <div class="apartment-card">
-            <div class="badge ${property.status === "for sale" ? "sale" : "rent"}">
-            ${property.status === "for sale" ? "For Sale" : "For Rent"}
+            <div class="badge ${
+              role === true ? "sale" : "rent"
+            }">
+            ${role === true ? "For Sale" : "For Rent"}
             </div>
             <img src=${property.images[0]} alt=${property.title} />
             <div class="text-content">
                 <div class="title-price">
                     <h5>${property.title}</h5>
-                    <p>$ ${property.price}</p>
+                    <p>UGX ${Number(property.price).toLocaleString()}</p>
                 </div>
                <div class="amenities">
                     <div class="">
                        <i class="fa fa-bed"></i>
-                       <span>${property.bedrooms}</span>
+                       <span>${details.bedroom}</span>
                     </div>
                     <div class="">
                         <i class="fa fa-bath"></i>
-                        <span>${property.bathrooms}</span>
+                        <span>${details.bathroom}</span>
                     </div>
                     <div class="">
                         <i class="fa fa-ruler-combined"></i>
-                        <span>${property.area}</span>
-                    </div>
-                    <div class="">
-                        <i class="fa fa-car"></i>
-                        <span>${property.garages}</span>
+                        <span>${details.area}</span>
                     </div>
                 </div>
             </div>
-        </div> 
-    `).join("");
-}
+          </div> 
+      `;
+      commercialApartmentsGrid.appendChild(singleProperty);
+    });
+  } catch (error) {
+    console.error("Something went wrong! Try again", error);
+  }
+};
 
-renderCommercialApartments();
-
-
+document.addEventListener("DOMContentLoaded", renderCommercialApartments());
 
 // render the location grid
 const locationsGrid = document.getElementById("locations-grid");
 
-function renderLocationsGrid(){
-    // get unique property locations
-    const uniqueLocations = [...new Set(properties.map(property => property.location))];
+function renderLocationsGrid() {
+  // get unique property locations
+  const uniqueLocations = [
+    ...new Set(locationsData.map((property) => property.location)),
+  ];
 
-    // Properties that belong to each unique location
-    const locationData = uniqueLocations.map(location => {
-        const locationProperties = properties.filter((property) => property.location === location );
+  // Properties that belong to each unique location
+  const locationData = uniqueLocations.map((location) => {
+    const locationProperties = locationsData.filter(
+      (property) => property.location === location
+    );
 
-        console.log(locationProperties);
+    console.log({ locationProperties });
 
-        return {
-            name: location,
-            count: locationProperties.length,
-            image: locationProperties[0].images[0]
-        }
-    });
+    return {
+      name: location,
+      count: locationProperties.length,
+      image: locationProperties[0].images[0],
+    };
+  });
 
-   locationsGrid.innerHTML = locationData.map(location => `
+  locationsGrid.innerHTML = locationData
+    .map(
+      (location) => `
    <div class="location-card">
       <img src=${location.image} alt={location.name}>
       <div class="overlay"></div>
@@ -130,7 +182,9 @@ function renderLocationsGrid(){
        </span>
       </div>
     </div>
-   `).join("");
+   `
+    )
+    .join("");
 }
 
 renderLocationsGrid();

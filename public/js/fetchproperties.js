@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }</p>
                 </div>
                 <div class="content">
-                    <h2>${property.title?.substring(0, 20)}</h2>
+                    <h2>${property.title}</h2>
                     <p class="desc">${property.description.substring(
                       0,
                       100

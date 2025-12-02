@@ -1,4 +1,4 @@
-const properties = [
+const locationsData = [
     {
         id: 1,
         title: "Division Road House",
@@ -110,4 +110,4 @@ const properties = [
     },
 ];
 
-export default properties;
+export default locationsData;
