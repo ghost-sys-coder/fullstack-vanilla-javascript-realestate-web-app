@@ -2,12 +2,12 @@
   "name": "chapter_3",
   "version": "1.0.0",
   "description": "A refresher on  backend development",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch --env-file=.env --experimental-strip-types --experimental-sqlite ./src/server.js",
     "sass": "sass --watch public/scss:public/css",
-    "serve": "concurrently \"npm run dev\" \"npm run sass\""
+    "serve": "concurrently \"npm run dev\" \"npm run sass\"",
+    "start": "node ./src/server.js"
   },
   "keywords": [],
   "author": "Tamale Frank",
