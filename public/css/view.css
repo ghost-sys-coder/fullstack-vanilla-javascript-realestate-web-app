@@ -84,9 +84,22 @@ a {
     position: relative;
 }
 
+@media (max-width: 991px) {
+  .navbar .container {
+    padding: 15px 10px;
+  }
+}
+
 .logo {
     color: #2c3e50;
     font-size: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+}
+.logo a {
+    color: #2c3e50;
 }
 
 .logo span {

@@ -36,6 +36,12 @@ section {
   min-height: 80vh;
 }
 
+@media (max-width:768px) {
+  section {
+    min-height: auto;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
