@@ -10,7 +10,7 @@ const locationsData = [
         garages: 3,
         status: "for sale",
         commercial: true,
-        location: "New York",
+        location: "Kampala",
         images: [
             "/assets/apartments/apartment-one/image-one.jpg",
             "/assets/apartments/apartment-one/image-two.jpg",
@@ -28,7 +28,7 @@ const locationsData = [
         garages: 1,
         status: "for sale",
         commercial: false,
-        location: "New York",
+        location: "Entebbe",
         images: [
             "./assets/apartments/apartment-two/image-1.jpeg",
             "./assets/apartments/apartment-two/image-2.jpeg",
@@ -46,7 +46,7 @@ const locationsData = [
         garages: 2,
         status: "for rent",
         commercial: true,
-        location: "Miami",
+        location: "Wakiso",
         images: [
             "./assets/apartments/apartment-three/image1.jpeg",
             "./assets/apartments/apartment-three/image2.jpeg",
@@ -65,7 +65,7 @@ const locationsData = [
         garages: 2,
         status: "for sale",
         commercial: true,
-        location: "Boston",
+        location: "Ntinda",
         images: [
             "./assets/apartments/apartment-four/image1.jpeg",
             "./assets/apartments/apartment-four/image2.jpeg",
@@ -83,7 +83,7 @@ const locationsData = [
         garages: 2,
         status: "for rent",
         commercial: false,
-        location: "Washington",
+        location: "Kololo",
         images: [
             "./assets/apartments/apartment-five/image1.jpeg",
             "./assets/apartments/apartment-five/image2.jpeg",
@@ -101,7 +101,7 @@ const locationsData = [
         garages: 1,
         status: "for sale",
         commercial: true,
-        location: "Miami",
+        location: "Munyonyo",
         images: [
             "./assets/apartments/apartment-six/image01.jpeg",
             "./assets/apartments/apartment-six/image02.jpeg",
