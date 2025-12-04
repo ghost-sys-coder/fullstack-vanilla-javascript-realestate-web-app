@@ -5,31 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="/globals.css" />
-    <link rel="stylesheet" href="/css/loading.css">
-    <link rel="stylesheet" href="/css/properties.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/loading.css" />
+    <link rel="stylesheet" href="/css/properties.css" />
+    <link rel="stylesheet" href="/css/bottom-navbar.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Property</title>
   </head>
   <body>
     <header class="navbar" id="navbar">
       <div class="skeleton-placeholder" id="skeleton-placeholder"></div>
     </header>
-   
-    <section class="properties-page" id="properties-page">
-      <div class="properties-container_skeleton" id="properties-container_skeleton">
-        <div class="item-skeleton"></div>
-        <div class="item-skeleton"></div>
-        <div class="item-skeleton"></div>
-        <div class="item-skeleton"></div>
-        <div class="item-skeleton"></div>
-        <div class="item-skeleton"></div>
-      </div>
-      <div class="properties-container" id="properties-container" style="display: none;">
 
+    <section class="properties-page" id="properties-page">
+      <div
+        class="properties-container_skeleton"
+        id="properties-container_skeleton"
+      >
+        <div class="item-skeleton"></div>
+        <div class="item-skeleton"></div>
+        <div class="item-skeleton"></div>
+        <div class="item-skeleton"></div>
+        <div class="item-skeleton"></div>
+        <div class="item-skeleton"></div>
       </div>
+      <div
+        class="properties-container"
+        id="properties-container"
+        style="display: none"
+      ></div>
     </section>
 
     <footer class="footer" id="footer"></footer>
+
+    <!-- Add this at the very end of <body>, just before closing </body> -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+      <a href="/" class="nav-item" data-page="home">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="/property" class="nav-item" data-page="property">
+        <i class="fas fa-search"></i>
+        <span>Explore</span>
+      </a>
+      <a href="/favorites" class="nav-item" data-page="favorites">
+        <i class="fas fa-heart"></i>
+        <span>Saved</span>
+      </a>
+      <a href="/messages" class="nav-item" data-page="messages">
+        <i class="fas fa-comment-dots"></i>
+        <span>Inbox</span>
+      </a>
+      <a href="/auth/sign-in" class="nav-item" id="auth-btn">
+        <i class="fas fa-user-circle"></i>
+        <span id="auth-text">Login</span>
+      </a>
+    </nav>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
@@ -37,6 +73,7 @@
     ></script>
     <script src="/js/navbar.js"></script>
     <script src="/js/footer.js"></script>
+    <script src="/js/bottom-navbar.js"></script>
     <script src="/js/fetchproperties.js"></script>
   </body>
 </html>

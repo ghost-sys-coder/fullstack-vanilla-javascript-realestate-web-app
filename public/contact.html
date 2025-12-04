@@ -13,6 +13,7 @@
     />
     <link rel="stylesheet" href="/globals.css" />
     <link rel="stylesheet" href="/css/loading.css" />
+    <link rel="stylesheet" href="/css/bottom-navbar.css" />
     <title>Contact</title>
   </head>
   <body>
@@ -164,6 +165,30 @@
 
     <footer class="footer" id="footer"></footer>
 
+    <!-- Add this at the very end of <body>, just before closing </body> -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+      <a href="/" class="nav-item" data-page="home">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="/property" class="nav-item" data-page="property">
+        <i class="fas fa-search"></i>
+        <span>Explore</span>
+      </a>
+      <a href="/favorites" class="nav-item" data-page="favorites">
+        <i class="fas fa-heart"></i>
+        <span>Saved</span>
+      </a>
+      <a href="/messages" class="nav-item" data-page="messages">
+        <i class="fas fa-comment-dots"></i>
+        <span>Inbox</span>
+      </a>
+      <a href="/auth/sign-in" class="nav-item" id="auth-btn">
+        <i class="fas fa-user-circle"></i>
+        <span id="auth-text">Login</span>
+      </a>
+    </nav>
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
       referrerpolicy="no-referrer"
@@ -171,5 +196,6 @@
     <script src="/js/navbar.js"></script>
     <script src="/js/footer.js"></script>
     <script src="/js/contact.js"></script>
+    <script src="/js/bottom-navbar.js"></script>
   </body>
 </html>

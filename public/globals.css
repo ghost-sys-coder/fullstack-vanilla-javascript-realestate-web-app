@@ -36,7 +36,7 @@ section {
   min-height: 80vh;
 }
 
-@media (max-width:768px) {
+@media (max-width:991px) {
   section {
     min-height: auto;
   }
@@ -242,7 +242,7 @@ a {
 /* hero section styles*/
 .hero-container {
   width: 100%;
-  height: 500px;
+  height: 700px;
   position: relative;
   border-radius: 10px;
   overflow: hidden;
@@ -365,6 +365,9 @@ a {
   0% { background-position: 200% 0;}
   100% { background-position: -200% 0;}
 }
+.apartments-container {
+  margin-block: 20px;
+}
 
 .apartments-grid {
   display: grid;
@@ -380,6 +383,12 @@ a {
   overflow: hidden;
   transition: transform 0.2s;
   position: relative;
+}
+
+@media (max-width: 768px) {
+  .apartments-grid .apartment-card {
+    border-radius: 0px;
+  }
 }
 
 .apartments-grid .apartment-card:hover {
@@ -488,6 +497,12 @@ a {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   margin-block: 2rem;
   padding: 4rem 4.5rem;
+}
+
+@media (max-width: 76px) {
+  .video-section, .video-container {
+    border-radius: 0px;
+  }
 }
 
 .video-container {
@@ -945,7 +960,7 @@ textarea {
 }
 .about_video-section {
   position: relative;
-  height: 350px;
+  height: 550px;
   overflow: hidden;
   background: #000;
 }
