@@ -116,6 +116,7 @@ apartmentRoutes.get("/:id", async (req, res) => {
 apartmentRoutes.get("/", async (req, res) => {
   try {
     const { role } = req.query;
+    console.log({ role });
 
     let query = `SELECT * FROM apartments`;
     let params = [];
@@ -150,9 +151,20 @@ apartmentRoutes.get("/", async (req, res) => {
  */
 apartmentRoutes.get("/locations/list", async (req, res) => {
   try {
+    const result = await pool.query(`
+      SELECT
+        location AS name,
+        MIN(images[1]) AS image,
+        COUNT(*)::int AS location_count
+      FROM apartments
+      GROUP BY name
+      ORDER BY location_count DESC
+      LIMIT 4
+    `);
     return res.status(200).json({
-      success: false,
-      message: "Apartments fetched"
+      success: true,
+      message: "Apartments fetched",
+      locations: result.rows
     });
   } catch (error) {
     console.error("Failed to fetch locations", error);

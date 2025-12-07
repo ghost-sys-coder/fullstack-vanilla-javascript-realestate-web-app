@@ -852,6 +852,35 @@ textarea {
   padding: 2rem;
 }
 
+.location_skeleton-grid {
+  margin-block: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 250px 250px;
+  gap: 20px;
+}
+.location_skeleton-grid .location_skeleton-item {
+  background: linear-gradient(135deg,#e0e0e0 25%, #f9f9f9 50%, #e0e0e0 75%);
+  border-radius: 10px;
+  box-shadow: 0 10px 14px rgba(0, 0, 0, 0.1);
+}
+
+.location_skeleton-grid .location_skeleton-item:nth-child(1){
+  grid-column: 1 / span 3;
+  grid-row: 1;
+}
+.location_skeleton-grid .location_skeleton-item:nth-child(2){
+  grid-column: 4 / span 1;
+  grid-row: 1;
+}
+.location_skeleton-grid .location_skeleton-item:nth-child(3){
+  grid-column: 1 / span 1;
+  grid-row: 2;
+}
+.location_skeleton-grid .location_skeleton-item:nth-child(4){
+  grid-column: 2 / span 3;
+  grid-row: 2;
+}
 .locations-grid {
   margin-block: 20px;
   display: grid;
@@ -897,6 +926,16 @@ textarea {
 .locations-grid .location-card:nth-child(4) {
   grid-column: 2 / span 3;
   grid-row: 2;
+}
+
+.locations-grid .location-card:nth-child(5) {
+  grid-column: 1 / span 1;
+  grid-row: 3;
+}
+
+.locations-grid .location-card:nth-child(6) {
+  grid-column: 2 / span 3;
+  grid-row: 3;
 }
 
 .locations-grid .location-card img {

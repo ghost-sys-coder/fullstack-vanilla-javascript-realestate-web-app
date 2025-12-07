@@ -146,45 +146,38 @@ document.addEventListener("DOMContentLoaded", renderCommercialApartments());
 
 // render the location grid
 const locationsGrid = document.getElementById("locations-grid");
+const locationSkeletonGrid = document.getElementById("location_skeleton-grid");
 
-function renderLocationsGrid() {
-  // get unique property locations
-  const uniqueLocations = [
-    ...new Set(locationsData.map((property) => property.location)),
-  ];
+async function renderLocationsGrid() {
+  try {
+    const response = await axios.get("/api/apartments/locations/list", {
+      withCredentials: true
+    });
 
-  // Properties that belong to each unique location
-  const locationData = uniqueLocations.map((location) => {
-    const locationProperties = locationsData.filter(
-      (property) => property.location === location
-    );
+    const locations = await response.data?.locations;
 
-    console.log({ locationProperties });
-
-    return {
-      name: location,
-      count: locationProperties.length,
-      image: locationProperties[0].images[0],
-    };
-  });
-
-  locationsGrid.innerHTML = locationData
-    .map(
-      (location) => `
-   <div class="location-card">
-      <img src=${location.image} alt={location.name}>
-      <div class="overlay"></div>
-      <div class="location-info">
-        <p>${location.name}</p>
-       <span>
-        ${location.count}
-        ${location.count > 1 ? "Properties" : "Property"}
-       </span>
-      </div>
-    </div>
-   `
-    )
-    .join("");
+    locationSkeletonGrid.style.display = "none";
+    locationsGrid.style.display = "grid";
+    
+    locations?.map((location) => {
+      const locationCard = document.createElement("div");
+      locationCard.classList.add("location-card");
+      locationCard.innerHTML = `
+        <img src=${location.image} alt={location.name}>
+        <div class="overlay"></div>
+        <div class="location-info">
+          <p>${location.name}</p>
+        <span>
+          ${location.location_count}
+          ${location.location_count > 1 ? "Properties" : "Property"}
+        </span>
+        </div>
+      `;
+      locationsGrid.appendChild(locationCard);
+    })
+  } catch (error) {
+    console.error("Failed to fetch locations:", error);
+  }
 }
 
-renderLocationsGrid();
+document.addEventListener("DOMContentLoaded", renderLocationsGrid());

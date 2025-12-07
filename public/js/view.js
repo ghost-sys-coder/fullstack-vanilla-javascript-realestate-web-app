@@ -16,7 +16,11 @@ async function loadApartment() {
     setTimeout(async () => {
       const response = await axios.get(`/api/apartments/${apartmentId}`);
         const apartment = await response.data.apartment;
-        console.log(apartment);
+
+        const role = await apartment?.details?.role;
+        
+        const isRole = role === true ? "For sale" : "For rent";
+        
         
         // Hide skeleton, show the content
         skeleton.style.display = "none";
@@ -24,6 +28,9 @@ async function loadApartment() {
 
         // Now render the content
         renderApartment(apartment);
+
+        //  Render similar apartments
+        relatedApartments(role);
     }, 3000);
   } catch (error) {
       console.error("Something went wrong,", error);
@@ -84,7 +91,7 @@ function renderApartment(apartment) {
         { key: "area", label: "Total Area", icon: "fa-th-large", suffix: "sq.ft" },
         { key: "bedroom", label: "Bedroom", icon: "fa-bed" },
         { key: "bathroom", label: "Bathroom", icon: "fa-bath" },
-        { key: "floor", label: "Floor", icon: "fa-building-o" },
+        { key: "floor", label: "Floor", icon: "fa-building" },
         { key: "year", label: "Construction Year", icon: "fa-calendar" },
         { key: "wifi", label: "Wi-Fi", icon: "fa-wifi", yesNo: true },
         {key: "parking", label: "Garage", icon: "fa-car", yesNo: true}
@@ -151,4 +158,59 @@ function renderApartment(apartment) {
 
 }
 
-loadApartment();
+document.addEventListener("DOMContentLoaded", loadApartment());
+
+
+const relatedApartmentsGrid = document.getElementById("location_skeleton-grid");
+const relatedApartmentsSkeleton = document.getElementById("related-apartments_skeleton");
+
+// load related apartments
+async function relatedApartments(role) {
+    try {
+        const response = await axios.get(`/api/apartments?role=${role}`);
+        const apartments = await response.data?.apartments;
+
+        apartments?.map((apartment) => {
+            const details = apartment?.details || {};
+            const role = details?.role;
+
+            const apartmentLink = document.createElement("a");
+            apartmentLink.href = `/apartments/view?id=${apartment.id}`;
+            apartmentLink.classList.add("related-apartment");
+
+            apartmentLink.innerHTML = `
+                <div class="apartment-card">
+                    <div class="image">
+                        <div class="badge ${role === true ? "sale" : "rent"}">
+                            ${role === true ? "For Sale" : "For Rent"}
+                        </div>
+                        <img src=${apartment?.images[0]} alt=${apartment?.title}
+                         />
+                    </div>
+                    <div class="text-content">
+                    <h6>${apartment?.title}</h6>
+                    <p>UGX ${Number(apartment?.price).toLocaleString()}</p>
+                    </div>
+                    <div class="amenities">
+                        <div class="">
+                            <i class="fa fa-bed"></i>
+                            <span>${details?.bedroom}</span>
+                        </div>
+                        <div class="">
+                        <i class="fa fa-bath"></i>
+                        <span>${details?.bathroom}</span>
+                        </div>
+                        <div class="">
+                        <i class="fa fa-ruler-combined"></i>
+                        <span>${details?.area}</span>
+                        </div>
+                    </div>
+                </div>
+            `
+            relatedApartmentsSkeleton.style.display = "none";
+            relatedApartmentsGrid.appendChild(apartmentLink);
+        })
+    } catch (error) {
+        console.error("Failed to fetch related apartments", error);
+    }
+}

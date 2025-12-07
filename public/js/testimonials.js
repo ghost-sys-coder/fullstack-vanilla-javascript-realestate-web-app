@@ -1,28 +1,28 @@
 // js/testimonials.js
 const testimonials = [
     {
-        name: "Sarah Johnson",
+        name: "Mike Samuel",
         role: "Homeowner, Palm Residences",
         image: "/assets/images/testimonials/male_one.png",
         message:
             "DreamHomes made buying my first home so simple and stress-free. The team was incredibly responsive, and I found the perfect apartment within days!",
     },
     {
-        name: "David Kim",
+        name: "Sarah",
         role: "Investor, Skyline Apartments",
         image: "/assets/images/testimonials/female_one.png",
         message:
             "Their platform helped me compare listings easily. I loved how professional and modern the interface felt — it’s a true game-changer for real estate.",
     },
     {
-        name: "Maria Gonzalez",
+        name: "Francis",
         role: "Tenant, Sunset Villas",
         image: "/assets/images/testimonials/male_two.png",
         message:
             "The experience was amazing! Everything was transparent, from viewing properties to finalizing paperwork. Highly recommend DreamHomes.",
     },
     {
-        name: "James Thompson",
+        name: "Annet Nakimuli",
         role: "Landlord, East Park Homes",
         image: "/assets/images/testimonials/female_two.png",
         message:

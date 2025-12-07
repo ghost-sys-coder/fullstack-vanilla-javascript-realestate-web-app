@@ -83,7 +83,7 @@ const locationsData = [
         garages: 2,
         status: "for rent",
         commercial: false,
-        location: "Kololo",
+        location: "Ntinda",
         images: [
             "./assets/apartments/apartment-five/image1.jpeg",
             "./assets/apartments/apartment-five/image2.jpeg",
@@ -101,7 +101,7 @@ const locationsData = [
         garages: 1,
         status: "for sale",
         commercial: true,
-        location: "Munyonyo",
+        location: "Kampala",
         images: [
             "./assets/apartments/apartment-six/image01.jpeg",
             "./assets/apartments/apartment-six/image02.jpeg",

@@ -562,6 +562,105 @@ a {
 }
 
 
+#related-apartments h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    padding-block: 10px;
+}
+#related-apartments .related-apartments_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-block: 1rem;
+}
+#related-apartments .related-apartments_grid a .apartment-card {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 14px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+#related-apartments .related-apartments_grid a .apartment-card .image {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 5px;
+    position: relative;
+}
+#related-apartments .related-apartments_grid a .apartment-card:hover {
+    transform: translateY(5px);
+}
+#related-apartments .related-apartments_grid a .apartment-card .badge {
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    position: absolute;
+    top: 10px; left: 10px;
+    color: #f9f9f9;
+}
+.sale {
+    background-color: #8EDA53;
+}
+.rent {
+    background-color: #9653DA;
+}
+#related-apartments .related-apartments_grid a .apartment-card .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#related-apartments .related-apartments_grid a .apartment-card .text-content {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+#related-apartments .related-apartments_grid a .apartment-card .text-content h6 {
+    font-size: 14px;
+    color: #000;
+}
+#related-apartments .related-apartments_grid a .apartment-card .text-content p {
+    color: #100E2C;
+    font-size: 12px;
+}
+#related-apartments .related-apartments_grid a .apartment-card .amenities {
+    padding: 5px 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin: 10px 0;
+    border-top: 1px solid #100E2C;
+}
+#related-apartments .related-apartments_grid a .apartment-card .amenities div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    color: #100E2C;
+}
+
+#related-apartments .related-apartments_skeleton {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    animation: pulse 1.8s infinite ease-in-out;
+}
+#related-apartments .related-apartments_skeleton .item-skeleton {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 0 10px 14px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, #e0e0e0 25%, #f9f9f9 50%, #e0e0e0 75%);
+    animation: loading infinite 1.5s;
+}
+
+
+
+
 
 
 
