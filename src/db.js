@@ -161,4 +161,135 @@ async function createIndexes() {
   }
 }
 
-// createAgentsTable();
+// create bookings table
+async function createBookingsTable() {
+  const client = await pool.connect();
+
+  try {
+    console.log("Creating bookings table...");
+
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS bookings (
+        id SERIAL PRIMARY KEY,
+        
+        -- Relationships
+        user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        apartment_id INTEGER NOT NULL REFERENCES apartments(id) ON DELETE CASCADE,
+
+        -- Booking dates
+        check_in DATE NOT NULL,
+        check_out DATE NOT NULL,
+
+        -- Guests
+        guests_adults INTEGER DEFAULT 1 CHECK (guests_adults >= 1),
+        guests_children INTEGER DEFAULT 0 CHECK (guests_children >= 0),
+
+        -- Pricing (snapshot at booking time)
+        nightly_rate NUMERIC(12,2) NOT NULL CHECK (nightly_rate > 0),
+        total_amount NUMERIC(12,2) NOT NULL CHECK (total_amount >= 0),
+        currency CHAR(3) DEFAULT 'UGX' CHECK (currency ~ '^[A-Z]{3}$'),
+
+        -- Status
+        status VARCHAR(20) DEFAULT 'pending' CHECK (status IN (
+          'pending',
+          'confirmed',
+          'cancelled',
+          'completed',
+          'no_show'
+        )),
+
+        -- Payment
+        payment_method VARCHAR(50),
+        payment_id VARCHAR(100),
+        paid_at TIMESTAMPTZ,
+
+        -- Notes
+        notes TEXT,
+
+        -- Timestamps
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW(),
+
+        -- Constraints
+        CONSTRAINT valid_date_range CHECK (check_out > check_in),
+        CONSTRAINT prevent_double_booking 
+          UNIQUE (apartment_id, check_in, check_out)
+      );
+    `);
+
+    // Indexes for performance
+    await client.query(`
+      CREATE INDEX IF NOT EXISTS idx_bookings_apartment_dates 
+        ON bookings(apartment_id, check_in, check_out);
+      
+      CREATE INDEX IF NOT EXISTS idx_bookings_user 
+        ON bookings(user_id);
+      
+      CREATE INDEX IF NOT EXISTS idx_bookings_status 
+        ON bookings(status);
+      
+      CREATE INDEX IF NOT EXISTS idx_bookings_dates 
+        ON bookings(check_in, check_out);
+    `);
+
+    // Trigger: Auto-update updated_at
+    await client.query(`
+      CREATE OR REPLACE FUNCTION update_updated_at_column()
+      RETURNS TRIGGER AS $$
+      BEGIN
+        NEW.updated_at = NOW();
+        RETURN NEW;
+      END;
+      $$ language 'plpgsql';
+
+      DROP TRIGGER IF EXISTS update_bookings_updated_at ON bookings;
+      
+      CREATE TRIGGER update_bookings_updated_at
+        BEFORE UPDATE ON bookings
+        FOR EACH ROW
+        EXECUTE FUNCTION update_updated_at_column();
+    `);
+
+    console.log("Bookings table created successfully with all constraints & indexes!");
+    console.log("Ready for Airbnb-level booking system!");
+
+  } catch (error) {
+    console.error("Failed to create bookings table:", error.stack);
+    throw error;
+  } finally {
+    client.release();
+  }
+}
+
+// Execute the function
+// createBookingsTable().then(() => process.exit(0)).catch(() => process.exit(1));
+
+
+// create reviews table
+async function createReviewsTable() {
+  const client = await pool.connect();
+
+  try {
+    console.log("Establishing connection...");
+
+    // create reviews table
+    await client.query(
+      `CREATE TABLE IF NOT EXISTS reviews(
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id),
+        apartment_id INTEGER REFERENCES apartments(id),
+        rating INTEGER NOT NULL,
+        comment TEXT,
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `);
+
+    console.log("Reviews table has been created!");
+  } catch (error) {
+    console.error("Connection Failed:", error.stack);
+  } finally {
+    client.release();
+    pool.end();
+  }
+}

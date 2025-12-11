@@ -7,6 +7,8 @@ import { fileURLToPath } from "url";
 import authRoutes from "./routes/authRoute.js";
 import apartmentRoutes from "./routes/apartmentsRoute.js";
 import agentsRoutes from "./routes/agentsRoute.js";
+import bookingRoutes from "./routes/bookingRoute.js";
+
 import verifyToken, { adminOnly } from "./middleware/authMiddleware.js";
 
 const PORT = process.env.PORT || 8000;
@@ -84,6 +86,7 @@ app.get("/apartments/view", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/apartments", apartmentRoutes);
 app.use("/api/agents", agentsRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 app.listen(PORT, ()=> {
     console.log(`Server is running on PORT: ${PORT}`);

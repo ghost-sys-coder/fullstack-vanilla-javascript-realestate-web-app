@@ -13,6 +13,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" integrity="sha512-MQXduO8IQnJVq1qmySpN87QQkiR1bZHtorbJBD0tzy7/0U9+YIC93QWHeGTEoojMVHWWNkoCp8V6OzVSYrX0oQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link
       rel="preload"
       href="/assets/videos/video_one.mp4"
@@ -150,6 +151,73 @@
                 </div>
               </form>
             </div>
+            <div class="booking-section" id="booking-section"
+            style="display: none;"
+            >
+              <div class="booking-card">
+                <div class="price-info">
+                  <h4>UGX <span id="nightly-price">0</span></h4>
+                  <p>Instant Booking available</p>
+                </div>
+                <div class="date-picker-container">
+                  <div class="date-input-group">
+                    <div class="input-wrapper">
+                      <label for="check_in">Check-in</label>
+                      <input type="date" name="check_in" id="check_in" required />
+                    </div>
+                    <div class="input-wrapper">
+                      <label for="check_out">Check-out</label>
+                      <input type="date" name="check_out" id="check_out" required />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Guest selector -->
+                 <div class="guest-selector">
+                  <label for="guests">Guests</label>
+                  <div class="guest-controls">
+                    <div class="guest-group">
+                      <span>Adults</span>
+                      <div class="counter">
+                        <button type="button" id="adults-increase">+</button>
+                        <span>1</span>
+                        <button type="button" id="adults-decrease">-</button>
+                      </div>
+                    </div>
+                    <div class="guest-group">
+                      <span>Children</span>
+                      <div class="counter">
+                        <button type="button" id="children-increase">+</button>
+                        <span>1</span>
+                        <button type="button" id="children-decrease">-</button>
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+
+                 <!-- Price Breakdown -->
+                  <div class="price-breakdown" id="price-breakdown">
+                    <div class="breakdown-item">
+                      <span>UGX <span id="nightly-rate-display">0</span> X <span id="nights-count">0</span></span>
+                      <span>UGX <span id="subtotal">0</span></span>
+                    </div>
+                    <div class="breakdown-item">
+                      <span>Service Fee</span>
+                      <span>UGX <span id="service-fee">50,000</span></span>
+                    </div>
+                    <div class="breakdown-total">
+                      <strong>Total (UGX)</strong>
+                      <strong id="total-price">0</strong>
+                    </div>
+                  </div>
+
+                <button type="button" class="book-btn" id="book-now-btn">
+                  <i class="fa fa-lock"></i>
+                  Book Now
+                </button>
+                <div class="booking-status" id="booking-status"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -175,6 +243,7 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js" integrity="sha512-K/oyQtMXpxI4+K0W7H25UopjM8pzq0yrVdFdG21Fh5dBe91I40pDd9A4lzNlHPHBIP2cwZuoxaUSX0GJSObvGA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/navbar.js"></script>
     <script src="/js/footer.js"></script>
     <script src="/js/view.js"></script>

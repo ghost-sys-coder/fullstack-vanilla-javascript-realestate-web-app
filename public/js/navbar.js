@@ -167,4 +167,4 @@ async function loadNavbar() {
   }
 }
 
-loadNavbar();
+document.addEventListener("DOMContentLoaded", loadNavbar);

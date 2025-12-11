@@ -10,175 +10,334 @@ async function loadApartment() {
     content.innerHTML = "<h2>Invalid apartment ID</h2>";
     skeleton.style.display = "none";
     return;
-}
+  }
 
   try {
     setTimeout(async () => {
       const response = await axios.get(`/api/apartments/${apartmentId}`);
-        const apartment = await response.data.apartment;
+      const apartment = await response.data.apartment;
 
-        const role = await apartment?.details?.role;
-        
-        const isRole = role === true ? "For sale" : "For rent";
-        
-        
-        // Hide skeleton, show the content
-        skeleton.style.display = "none";
-        content.style.display = "block";
+      const role = await apartment?.details?.role;
 
-        // Now render the content
-        renderApartment(apartment);
+      const isRole = role === true ? "For sale" : "For rent";
 
-        //  Render similar apartments
-        relatedApartments(role);
-    }, 3000);
-  } catch (error) {
-      console.error("Something went wrong,", error);
+      // Hide skeleton, show the content
       skeleton.style.display = "none";
       content.style.display = "block";
-      content.innerHTML = `
+
+      // Now render the content
+      renderApartment(apartment);
+
+      //  Render similar apartments
+      relatedApartments(role);
+    }, 3000);
+  } catch (error) {
+    console.error("Something went wrong,", error);
+    skeleton.style.display = "none";
+    content.style.display = "block";
+    content.innerHTML = `
       <div className="" style="text-align:center; padding:4rem; color:#e74c3c;">
         <h2>Failed to load apartment data</h2>
         <p>Please refresh the page or check your internet connection</p>
       </div>
-      `
+      `;
   }
 }
 
-function renderApartment(apartment) {
-    const roleEl = document.getElementById("property-role");
-    const isForSale = apartment?.details?.role === true;
-    roleEl.textContent = isForSale ? "For Sale" : "For Rent";
-    roleEl.className = "property-role " + (isForSale ? "role-sale" : "role-rent");
+/**
+ * ! start --- render apartment functionality
+ */
 
-    document.getElementById("apartment-title").innerHTML = `
+function renderApartment(apartment) {
+  const roleEl = document.getElementById("property-role");
+  const isForSale = apartment?.details?.role === true;
+  roleEl.textContent = isForSale ? "For Sale" : "For Rent";
+  roleEl.className = "property-role " + (isForSale ? "role-sale" : "role-rent");
+
+  document.getElementById("apartment-title").innerHTML = `
     <h1>${apartment.title}</h1>
     <p>${apartment.location}</p>
-    `
-    document.getElementById("apartment-price").innerHTML = `
+    `;
+  document.getElementById("apartment-price").innerHTML = `
     <h2>UGX${Number(apartment.price).toLocaleString()}</h2>
     <span>${apartment?.details?.area}/sq.ft</span>
-    `
+    `;
 
-    // get images
-    const largeImageContainer = document.querySelector(".images-grid .large-image");
-    const largeImage = largeImageContainer.appendChild(document.createElement("img"));
-    largeImage.src = apartment.images[0];
-    largeImage.alt = apartment.title;
+  // get images
+  const largeImageContainer = document.querySelector(
+    ".images-grid .large-image"
+  );
+  const largeImage = largeImageContainer.appendChild(
+    document.createElement("img")
+  );
+  largeImage.src = apartment.images[0];
+  largeImage.alt = apartment.title;
 
-    const smallImagesContainer = document.querySelector(".images-grid .small-images");
-    apartment?.images?.splice(0, 4)?.map((image, index) => {
-        const imageContainer = document.createElement("div");
-        smallImagesContainer.appendChild(imageContainer); 
-        const smallImage = document.createElement("img");
-        smallImage.src = image;
-        smallImage.alt = image + index;
-        smallImage.onclick = () => {
-            largeImage.src = image;
-        }
-        imageContainer.appendChild(smallImage);
-    });
+  const smallImagesContainer = document.querySelector(
+    ".images-grid .small-images"
+  );
+  apartment?.images?.splice(0, 4)?.map((image, index) => {
+    const imageContainer = document.createElement("div");
+    smallImagesContainer.appendChild(imageContainer);
+    const smallImage = document.createElement("img");
+    smallImage.src = image;
+    smallImage.alt = image + index;
+    smallImage.onclick = () => {
+      largeImage.src = image;
+    };
+    imageContainer.appendChild(smallImage);
+  });
 
-    // property description & details
-    const descriptionText = document.querySelector(".details .left-container .description .desc-text");
-    descriptionText.innerHTML = apartment?.description?.substring(0, 400);
+  // property description & details
+  const descriptionText = document.querySelector(
+    ".details .left-container .description .desc-text"
+  );
+  descriptionText.innerHTML = apartment?.description?.substring(0, 400);
 
+  const propertyDetails = document.querySelector(
+    ".property-details_container .property-details"
+  );
+  propertyDetails.innerHTML = "";
 
-    const propertyDetails = document.querySelector(".property-details_container .property-details");
-    propertyDetails.innerHTML = "";
+  const detailItems = [
+    { key: "area", label: "Total Area", icon: "fa-th-large", suffix: "sq.ft" },
+    { key: "bedroom", label: "Bedroom", icon: "fa-bed" },
+    { key: "bathroom", label: "Bathroom", icon: "fa-bath" },
+    { key: "floor", label: "Floor", icon: "fa-building" },
+    { key: "year", label: "Construction Year", icon: "fa-calendar" },
+    { key: "wifi", label: "Wi-Fi", icon: "fa-wifi", yesNo: true },
+    { key: "parking", label: "Garage", icon: "fa-car", yesNo: true },
+  ];
 
-    const detailItems = [
-        { key: "area", label: "Total Area", icon: "fa-th-large", suffix: "sq.ft" },
-        { key: "bedroom", label: "Bedroom", icon: "fa-bed" },
-        { key: "bathroom", label: "Bathroom", icon: "fa-bath" },
-        { key: "floor", label: "Floor", icon: "fa-building" },
-        { key: "year", label: "Construction Year", icon: "fa-calendar" },
-        { key: "wifi", label: "Wi-Fi", icon: "fa-wifi", yesNo: true },
-        {key: "parking", label: "Garage", icon: "fa-car", yesNo: true}
-    ]
-    
-    detailItems.map((item) => {
-        const value = apartment?.details?.[item.key];
-        if (value === undefined || value === null || value === "") return;
+  detailItems.map((item) => {
+    const value = apartment?.details?.[item.key];
+    if (value === undefined || value === null || value === "") return;
 
-        const detail = document.createElement("div");
-        detail.className = "item";
+    const detail = document.createElement("div");
+    detail.className = "item";
 
-        const displayValue = item.yesNo ? (value ? "Yes" : "No") : value + (item.suffix || "");
+    const displayValue = item.yesNo
+      ? value
+        ? "Yes"
+        : "No"
+      : value + (item.suffix || "");
 
-        detail.innerHTML = `
+    detail.innerHTML = `
             <div className="details_item">
                 <i class="fa ${item.icon}" aria-hidden="true"></i>
                 ${item.label}
             </div>
             <span>${displayValue}</span>
         `;
-        propertyDetails.appendChild(detail);
-    });
+    propertyDetails.appendChild(detail);
+  });
 
+  // handling property amenities
+  const amenitiesContainer = document.querySelector(".amenities-container");
 
-    // handling property amenities
-    const amenitiesContainer = document.querySelector(".amenities-container");
+  const amenityDetails = [
+    { key: "education", label: "Education", icon: "fa-graduation-cap" },
+    { key: "health", label: "Health & Medicine", icon: "fa-ambulance" },
+    { key: "restaurants", label: "Restaurants & Hotels", icon: "fa-bed" },
+    { key: "culture", label: "Culture", icon: "fa-gavel" },
+  ];
 
-    const amenityDetails = [
-        { key: "education", label: "Education", icon: "fa-graduation-cap" },
-        { key: "health", label: "Health & Medicine", icon: "fa-ambulance" },
-        { key: "restaurants", label: "Restaurants & Hotels", icon: "fa-bed" },
-        {key: "culture", label: "Culture", icon: "fa-gavel"}
-    ]
+  amenityDetails.map((item) => {
+    const value = apartment?.amenities?.[item.key];
+    if (value === undefined || value === null || value === "") return;
 
-    amenityDetails.map((item) => {
-        const value = apartment?.amenities?.[item.key];
-        if (value === undefined || value === null || value === "") return;
-        
-        const detail = document.createElement("div");
-        detail.className = "item";
+    const detail = document.createElement("div");
+    detail.className = "item";
 
-        detail.innerHTML = `
+    detail.innerHTML = `
             <div class="item-header">
             <i class="fa ${item.icon}" aria-hidden="true"></i>
             <span>${item.label}</span>
             </div>
             <ul class="item-content">
-                ${value.map(v => `<li>${v}</li>`).join("")}
+                ${value.map((v) => `<li>${v}</li>`).join("")}
             </ul>
         `;
 
-        amenitiesContainer.appendChild(detail);
-    })
+    amenitiesContainer.appendChild(detail);
+  });
 
-
-    // handling contact form 
-    const agentContactDetails = document.querySelector(".contact-form_container .contact-details");
-    agentContactDetails.innerHTML = `
+  // handling contact form
+  const agentContactDetails = document.querySelector(
+    ".contact-form_container .contact-details"
+  );
+  agentContactDetails.innerHTML = `
         <h5>${apartment.username}</h5>
         <p>${apartment.contact}</p>
         <p>${apartment.email}</p>
     `;
 
+  // === booking system for rental apartments
+  const bookingSection = document.getElementById("booking-section");
+    const nightlyPrice = document.getElementById("nightly-price");
+    const checkInInput = document.getElementById("check_in");
+    const checkOutInput = document.getElementById("check_out");
+    const statusEl = document.getElementById("booking-status");
+    const bookNowBtn = document.getElementById("book-now-btn");
+
+  if (!isForSale && apartment?.details?.rentalPrice) {
+    bookingSection.style.display = "block";
+    nightlyPrice.textContent = Number(
+      apartment?.details?.rentalPrice
+    ).toLocaleString();
+
+    let bookedDates = [];
+
+    // fetch booked dates
+    axios
+      .get(`/api/bookings/apartment/${apartmentId}`)
+      .then((res) => {
+        bookedDates = res.data?.bookings || [];
+          console.log({ bookedDates });
+          setUpDatePickers();
+      })
+      .catch((error) => {
+        console.error("Failed to fetch booked dates", error);
+      });
+
+      function setUpDatePickers() {
+          const today = new Date().toISOString().split("T")[0];
+          checkInInput.min = today;
+          checkOutInput.min = today;
+          
+
+          // Helper: Check if selected date is within booked range
+          function isDateBooked(dateStr) {
+              const date = new Date(dateStr);
+              return bookedDates.some((range) => {
+                  const from = new Date(range.check_in);
+                  const to = new Date(range.check_out);
+                  return date >= from && date <= to;
+              })
+          }
+
+          // validate check-in date 
+          checkInInput.addEventListener("change", () => {
+              const checkInDate = checkInInput.value;
+              
+              if (!checkInDate) return;
+
+              if (isDateBooked(checkInDate)) {
+                  statusEl.textContent = "Date already booked";
+                  statusEl.className = "booking-status error";
+                  checkInInput.value = "";
+                  bookNowBtn.disabled = true;
+                  return;
+              }
+
+              // set minimum date value for checkout
+              checkOutInput.min = checkInDate;
+              checkOutInput.value = "";
+              statusEl.textContent = "";
+              bookNowBtn.disabled = true;
+          });
+
+          // validate checkout date 
+          checkOutInput.addEventListener("change", async function () {
+              const checkInDate = checkInInput.value;
+              const checkOutDate = checkOutInput.value;
+
+              if (!checkInDate || !checkOutDate) {
+                  bookNowBtn.disabled = true;
+                  return;
+              }
+              if (new Date(checkOutDate) <= new Date(checkInDate)) {
+                  statusEl.textContent = "Check-out date must be after check-in date";
+                  statusEl.className = "booking-status error";
+                  checkOutInput.value = "";
+                  bookNowBtn.disabled = true;
+                  return;
+              }
+
+              // check entire date range for conflicts
+              const current = new Date(checkInDate);
+              const end = new Date(checkOutDate);
+
+              while (current <= end) {
+                  const dateStr = current.toISOString().split("T")[0];
+                  if (isDateBooked(dateStr)) {
+                      statusEl.textContent = "Date already booked";
+                      statusEl.className = "booking-status error";
+                      checkOutInput.value = "";
+                      bookNowBtn.disabled = true;
+                      return;
+                  }
+
+                  current.setDate(current.getDate() + 1);
+              }
+
+              statusEl.textContent = "Dates Available!";
+              statusEl.className = "booking-status success";
+              bookNowBtn.disabled = false;
+              bookNowBtn.classList.add("enabled");
+
+              // Book Now
+              bookNowBtn.addEventListener("click", async () => {
+                  if (bookNowBtn.disabled) return;
+
+                  bookNowBtn.disabled = true;
+                  bookNowBtn.classList.remove("enabled");
+                  bookNowBtn.innerHTML = `<i class="fa fa-spinner fa-spin"></i> Processing...`;
+
+                  try {
+                      const response = await axios.post("/api/bookings/create", {
+                          apartmentId: parseInt(apartmentId),
+                          checkIn: checkInDate,
+                          checkOut: checkOutDate
+                      }, { withCredentials: true});
+
+                      if (response.data.success) {
+                          statusEl.textContent = "Booking successful!";
+                          statusEl.className = "booking-status success";
+                          bookNowBtn.innerHTML = "Booked";
+                      } else {
+                          statusEl.textContent = response.data.message || "Booking failed!";
+                          statusEl.className = "booking-status error";
+                          bookNowBtn.innerHTML = "Book Now";
+                      }
+
+                  } catch (error) {
+                      console.error("Failed to create booking!", error);
+                  }
+              })
+          })
+      }
+  } else {
+    bookingSection.style.display = "none";
+  }
 }
+
+/**
+ * ! end --- render apartment functionality
+ */
 
 document.addEventListener("DOMContentLoaded", loadApartment());
 
-
 const relatedApartmentsGrid = document.getElementById("location_skeleton-grid");
-const relatedApartmentsSkeleton = document.getElementById("related-apartments_skeleton");
+const relatedApartmentsSkeleton = document.getElementById(
+  "related-apartments_skeleton"
+);
 
 // load related apartments
 async function relatedApartments(role) {
-    try {
-        const response = await axios.get(`/api/apartments?role=${role}`);
-        const apartments = await response.data?.apartments;
+  try {
+    const response = await axios.get(`/api/apartments?role=${role}`);
+    const apartments = await response.data?.apartments;
 
-        apartments?.map((apartment) => {
-            const details = apartment?.details || {};
-            const role = details?.role;
+    apartments?.map((apartment) => {
+      const details = apartment?.details || {};
+      const role = details?.role;
 
-            const apartmentLink = document.createElement("a");
-            apartmentLink.href = `/apartments/view?id=${apartment.id}`;
-            apartmentLink.classList.add("related-apartment");
+      const apartmentLink = document.createElement("a");
+      apartmentLink.href = `/apartments/view?id=${apartment.id}`;
+      apartmentLink.classList.add("related-apartment");
 
-            apartmentLink.innerHTML = `
+      apartmentLink.innerHTML = `
                 <div class="apartment-card">
                     <div class="image">
                         <div class="badge ${role === true ? "sale" : "rent"}">
@@ -206,11 +365,11 @@ async function relatedApartments(role) {
                         </div>
                     </div>
                 </div>
-            `
-            relatedApartmentsSkeleton.style.display = "none";
-            relatedApartmentsGrid.appendChild(apartmentLink);
-        })
-    } catch (error) {
-        console.error("Failed to fetch related apartments", error);
-    }
+            `;
+      relatedApartmentsSkeleton.style.display = "none";
+      relatedApartmentsGrid.appendChild(apartmentLink);
+    });
+  } catch (error) {
+    console.error("Failed to fetch related apartments", error);
+  }
 }
