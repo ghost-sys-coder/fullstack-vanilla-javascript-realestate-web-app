@@ -278,6 +278,7 @@ function renderApartment(apartment) {
 
               // Book Now
               bookNowBtn.addEventListener("click", async () => {
+                  console.log("Book Now button clicked");
                   if (bookNowBtn.disabled) return;
 
                   bookNowBtn.disabled = true;
