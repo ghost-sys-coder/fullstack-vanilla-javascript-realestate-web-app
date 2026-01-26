@@ -179,6 +179,15 @@ function renderApartment(apartment) {
     const checkOutInput = document.getElementById("check_out");
     const statusEl = document.getElementById("booking-status");
     const bookNowBtn = document.getElementById("book-now-btn");
+    const priceBreakdown = document.getElementById("price-breakdown");
+    const subtotalEl = document.getElementById("subtotal");
+    const nightsCountEl = document.getElementById("nights-count");
+    const nightlyRateDisplay = document.getElementById("nightly-rate-display");
+    const totalPriceEl = document.getElementById("total-price");
+
+    const nightlyRate = Number(apartment?.details?.rentalPrice);
+    const serviceFee = 50000; // fixed 
+    nightlyRateDisplay.textContent = nightlyRate.toLocaleString();
 
   if (!isForSale && apartment?.details?.rentalPrice) {
     bookingSection.style.display = "block";
@@ -186,7 +195,9 @@ function renderApartment(apartment) {
       apartment?.details?.rentalPrice
     ).toLocaleString();
 
-    let bookedDates = [];
+      let bookedDates = [];
+      let adults = 1;
+      let children = 0;
 
     // fetch booked dates
     axios
@@ -278,7 +289,6 @@ function renderApartment(apartment) {
 
               // Book Now
               bookNowBtn.addEventListener("click", async () => {
-                  console.log("Book Now button clicked");
                   if (bookNowBtn.disabled) return;
 
                   bookNowBtn.disabled = true;
